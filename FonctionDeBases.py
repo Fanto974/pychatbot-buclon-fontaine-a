@@ -53,35 +53,34 @@ def print_unique(directory, extension):
 
 def minimize_text(text):
     """
-
+    
     :param text: chaine de caracteres avec des majuscules, minuscules et caracteres sopeciaux
     :return: une chaine de caratere sans majuscules
 
     :description: la fonction réduit les majuscules en minuscules
     """
     speech_minimized = ""
-    for val in text:
-        if "A" <= val <= "Z":
-            speech_minimized += chr(ord(val) + 32)
-        else:
-            speech_minimized += val
+    for val in text:                                 #Pour chaque caractères du texte
+        if "A" <= val <= "Z":                        #Si la valeur est un caractère majuscule
+            speech_minimized += chr(ord(val) + 32)   #On la transforme en son equivalent en minuscules
+        else:    
+            speech_minimized += val                  #Sinon on ajoute directement le caractère
     return speech_minimized
-
-
-def lower_files(directory="./speech/", end_directory="./cleaned/cleaned_"):
+    
+def lower_files(directory = "./speech/", end_directory="./cleaned/cleaned_"):
     """
+    :param: Le dossier depuis lequel on prend les fichier et celui dans lequel on stock les nouveaux fichiers
     :description: La foncion va mettre en minuscules les fichiers du dossier speech et les ranger dans ./cleaned/ avec un nom tel que "cleaned_ NOM DU FICHIER"
     """
-    k = 0
-    for file in list_of_files(directory, ".txt"):
+    k= 0
+    for file in list_of_files(directory, ".txt"):          #Pour chaque fichier du dossier donné
         list_speech = []
-        with open(directory + file, "r") as np:
+        with open(directory+file, "r") as np:              #On ouvre le fichier du dossier en lecture
             discours = np.read()
-            list_speech.append(minimize_text(discours))
+            list_speech.append(minimize_text(discours))    #On ajoute a la liste l'equivalent du fichier en minuscules
             np.close()
-        with open(end_directory + file, "w") as np:
-            np.write(list_speech[k])
-
+        with open(end_directory+file, "w") as np:
+            np.write(list_speech[k])                        #On écrit dans le nouveau fichier le texe en minuscules
 
 def apostrophe(lettre, l):
     """
