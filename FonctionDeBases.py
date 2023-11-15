@@ -1,13 +1,13 @@
 from RechercheFichier import *
 
-
-def get_names(list_files):
+def get_names(directory = "./speech/"):
     """
-    :param list_files: Liste des fichier des discours
+    :param : Dossier contenant les fichier des discours
     :return: list_name: liste des noms de chaque présients ayant fait un discours que l'on posséde en fichier
     
     :description: Recupère les noms de tt les présidents
     """
+    list_files = list_of_files(directory,".txt")
     set_of_name = {"Initialisation du set"}
     set_of_name.clear()
     for file in list_files:
@@ -38,8 +38,24 @@ def associe(list_noms):
 def print_unique(directory, extension):
     """
 
-    :param: Dossiers contenant les fichier avec l'extension correpondante
+    :param: Dossiers contenant les fichier
     
     :description: On affiche les noms des présidents en évitants les doublons.
     """
-    print(get_names(list_of_files(directory, extension)))# Les doublons sont déjà gérer par les sets dans get_names
+    print(get_names())# Les doublons sont déjà gérer par les sets dans get_names
+
+def minimize_text(text):
+    """
+    
+    :param text: chaine de caracteres avec des majuscules, minuscules et caracteres sopeciaux
+    :return: une chaine de caratere sans majuscules
+
+    :description: la fonction réduit les majuscules en minuscules
+    """
+    speech_minimized = ""
+    for val in text:
+        if "A" <= val <= "Z":
+            speech_minimized += chr(ord(val) + 32)
+        else:
+            speech_minimized += val
+    return speech_minimized
