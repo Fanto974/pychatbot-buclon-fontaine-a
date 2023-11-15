@@ -38,7 +38,7 @@ def associe(list_noms):
 def print_unique(directory, extension):
     """
 
-    :param: Dossiers contenant les fichier
+    :param: Dossiers contenant les fichier avec l'extension correpondante
     
     :description: On affiche les noms des présidents en évitants les doublons.
     """
