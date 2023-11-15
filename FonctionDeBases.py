@@ -98,11 +98,16 @@ def apostrophe(lettre, l):
         return "e "
 
 def suppr_SpeCara():
-    l = -1
-    liste_e = ["é","è","ê","ë"]
+    """
+    :return: les textes du fichier cleaned crée auaprevant par la fonction lower_files (qui elève les majuscules) sans leurs caractères spéciaux
+
+    :description: Permet de supprimer les caratères spéciaux en prenant en compte toutes les subtilitées de se changement
+    """
+    l = -1        #Permet le changement de l'apporstophe au mieux
+    liste_e = ["é","è","ê","ë"]        #Crée les listes pour permettre le remplacement des caractères spéciaux
     liste_a = ["à","â"]
     list_fichiers = list_of_files("./cleaned", ".txt")
-    for fichier in list_fichiers:
+    for fichier in list_fichiers:        # Permet d'ouvrir un fichier a la suite
         with open("./cleaned/" + fichier, "r", encoding='utf8') as fc:
             fichier_chaine = fc.read()
             chaine_SansCaraSpe = ""
