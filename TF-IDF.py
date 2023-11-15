@@ -48,3 +48,12 @@ def tfidf(directory="./cleaned"):
                 matrice_tf_idf[id].append(0.0)
         id += 1
     return matrice_tf_idf
+
+def write_tf_idf():
+    with open("TF-IDF_matrice.txt", "w") as f:
+        id = 0
+        dico_key = list(idf().keys())
+        for l in tfidf():
+            f.write(str(dico_key[id]) + " " + str(l) + "\n")
+            id += 1
+write_tf_idf()
