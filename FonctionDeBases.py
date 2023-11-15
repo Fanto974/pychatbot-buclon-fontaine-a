@@ -18,3 +18,21 @@ def get_names(list_files):
             set_of_name.add(file[:-4][11:])     # On prend prend le 5eme caractere car il fait parti du nom
     
     return list(set_of_name)
+
+
+def associe(list_noms):
+    """
+
+    :param list_noms: une liste des noms SANS DOUBLONS des présidents voulu
+    :return: les noms et prénoms de tous les présidents ayant fait des discours
+    """
+    with open("Nom_Prenom.txt","r") as np:  # Ouvre le fichier contenant la liste de tout les présidents francais ayant existés
+        list_NomsPrenoms = []               #Crée une liste qui associra le nom et les prénoms
+        list_NomPrenom = np.readlines()
+        for i in range(len(list_NomPrenom)):  # Parcours les prénoms de tous les présidents du fichier
+            a = list_NomPrenom[i].split(" : ")
+            if a[0] in list_noms:  # Si un nom est également dans la liste de nom pris en paramètre:
+                list_NomsPrenoms.append(list_NomPrenom[i][:-1])  # la liste finale apprend le nom et le prénom du président en question
+        return list_NomsPrenoms
+
+print(associe(get_names(list_of_files("./speech", ".txt"))))
