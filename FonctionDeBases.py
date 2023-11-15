@@ -98,37 +98,46 @@ def apostrophe(lettre, l):
     else:
         return "e "
 
-
-# print(apostrophe("l",-1))
-
-
 def suppr_SpeCara():
-    """
-
-    :return: les textes du dossier cleaned sans caractères spéciaux
-    """
-    l = -1              # Permet le remplacement de l'aposrtophe avec une variable intermédiaire
-    list_fichiers = list_of_files("./cleaned", ".txt")      #crée une liste de tous les fichiers contenus dans cleaned
-    for fichier in list_fichiers:           #ouvre les fichiers de cette liste un par un
-        with open("./cleaned/" + fichier, "r") as fc:
+    l = -1
+    liste_e = ["é","è","ê","ë"]
+    liste_a = ["à","â"]
+    list_fichiers = list_of_files("./cleaned", ".txt")
+    for fichier in list_fichiers:
+        with open("./cleaned/" + fichier, "r", encoding='utf8') as fc:
             fichier_chaine = fc.read()
-            chaine_SansCaraSpe = ""             # Crée une chaine de caractère sans caracrères spéciaux
+            chaine_SansCaraSpe = ""
             for i in range(len(fichier_chaine)):
-                if "a" <= fichier_chaine[i] <= "z":             # Si c'est une lettre normal on la met dans la nouvelle chaine
+                if "a" <= fichier_chaine[i] <= "z":
                     chaine_SansCaraSpe += fichier_chaine[i]
                 else:
-                    if fichier_chaine[i] == "'":                # Sinon on traite autrement
-                        chaine_SansCaraSpe += apostrophe(fichier_chaine[i - 1], l)      # Si c'est une apostrophe on apelle la fonction dédiée
+                    #print(fichier_chaine[i])
+                    if fichier_chaine[i] == "'":
+                        chaine_SansCaraSpe += apostrophe(fichier_chaine[i-1], l)
                         l *= -1
+                    elif fichier_chaine[i] in liste_e:
+                        chaine_SansCaraSpe += "e"
+
+                    elif fichier_chaine[i] in liste_a:
+                        chaine_SansCaraSpe += "a"
+
+                    elif fichier_chaine[i] == "ù":
+                        chaine_SansCaraSpe += "u"
+
+                    elif fichier_chaine[i] == "ç":
+                        chaine_SansCaraSpe += "c"
+
+                    elif fichier_chaine[i] == "ô":
+                        chaine_SansCaraSpe += "o"
+
                     else:
-                        chaine_SansCaraSpe += " "           # Sinon on remplace par un espace
-        chaine_SansCaraSpe2 = ""                    #on crée une nouvelle chaine afin de supprimer les doublons d'espaces
-        for i in range(len(chaine_SansCaraSpe) - 1):
+                        chaine_SansCaraSpe += " "
+        chaine_SansCaraSpe2 = ""
+        for i in range(len(chaine_SansCaraSpe) -1):
             if chaine_SansCaraSpe[i + 1] == " " and chaine_SansCaraSpe[i] == " ":
                 chaine_SansCaraSpe2 += ""
             else:
                 chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
 
-        with open("./cleaned/" + fichier, "w") as fc:
+        with open ("./cleaned/" + fichier, "w") as fc:
             fc.write(chaine_SansCaraSpe2)
-# suppr_SpeCara()
