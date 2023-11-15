@@ -35,4 +35,11 @@ def associe(list_noms):
                 list_NomsPrenoms.append(list_NomPrenom[i][:-1])  # la liste finale apprend le nom et le prénom du président en question
         return list_NomsPrenoms
 
-print(associe(get_names(list_of_files("./speech", ".txt"))))
+def print_unique(directory, extension):
+    """
+
+    :param: Dossiers contenant les fichier
+    
+    :description: On affiche les noms des présidents en évitants les doublons.
+    """
+    print(get_names(list_of_files(directory, extension)))# Les doublons sont déjà gérer par les sets dans get_names
