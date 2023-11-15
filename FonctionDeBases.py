@@ -59,3 +59,17 @@ def minimize_text(text):
         else:
             speech_minimized += val
     return speech_minimized
+    
+def lower_files(directory = "./speech/", end_directory="./cleaned/cleaned_"):
+    """
+    :description: La foncion va mettre en minuscules les fichiers du dossier speech et les ranger dans ./cleaned/ avec un nom tel que "cleaned_ NOM DU FICHIER"
+    """
+    k= 0
+    for file in list_of_files(directory, ".txt"):
+        list_speech = []
+        with open(directory+file, "r") as np:
+            discours = np.read()
+            list_speech.append(minimize_text(discours))
+            np.close()
+        with open(end_directory+file, "w") as np:
+            np.write(list_speech[k])
