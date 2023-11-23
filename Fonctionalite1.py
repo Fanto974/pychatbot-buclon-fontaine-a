@@ -1,4 +1,5 @@
 from TFIDF import *
+from FonctionDeBases import *
 
 def NonImportant():
     dico_key = list(idf().keys())
