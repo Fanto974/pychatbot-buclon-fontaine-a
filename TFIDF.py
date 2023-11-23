@@ -1,3 +1,4 @@
+from RechercheFichier import *
 def tf(text):
     words = text.split(" ")
     tf_dico = {}
@@ -56,4 +57,4 @@ def write_tf_idf():
         for l in tfidf():
             f.write(str(dico_key[id]) + " " + str(l) + "\n")
             id += 1
-write_tf_idf()
+#write_tf_idf()
