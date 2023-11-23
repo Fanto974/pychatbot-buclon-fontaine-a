@@ -1,3 +1,6 @@
+from TFIDF import *
+from FonctionDeBases import *
+
 def who_said(directory="./cleaned/",word="Nation"):
     """
     :desc: Fonction qui dit quel président on prononcer un mot donné
@@ -16,12 +19,11 @@ def who_said(directory="./cleaned/",word="Nation"):
             id = i
             break
     
-    for i in range(len(tf_idf[id])):
-        if tf_idf[id][i] != 0:    
-            if liste_names[i] in time_said.keys():
-                time_said[liste_names[i]] += tf_idf[id][i]
-            else:
-                time_said[liste_names[i]] = tf_idf[id][i]          
+    for i in range(len(tf_idf[id])):   
+        if liste_names[i] in time_said.keys():
+            time_said[liste_names[i]] += tf_idf[id][i]
+        else:
+            time_said[liste_names[i]] = tf_idf[id][i]          
     for val in time_said.keys():
         if time_said[val] > maxi:
             maxi = time_said[val]
@@ -29,4 +31,3 @@ def who_said(directory="./cleaned/",word="Nation"):
         elif time_said[val] == maxi:
             people_max.append(val)
     return [people_max, list(time_said.keys())]
-#print(who_said())
