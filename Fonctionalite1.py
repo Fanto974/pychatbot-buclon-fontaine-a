@@ -2,6 +2,11 @@ from TFIDF import *
 from FonctionDeBases import *
 
 def NonImportant():
+    """
+    :return: list_mots_non_important: liste des mots qui ont un tfidf de 0
+    
+    :description: Identifie les mots ayant un tfidf de 0
+    """
     dico_key = list(idf().keys())                                # On crée une liste contenant tous les mots de tous les discours a partir de la fonction idf()
     matrice = tfidf()                                            # On crée une variable matrice qui stock toute la matrice générée par le tfidf()
     list_mots_non_important = []                                 # Enfin, on crée une liste qui va contenir tous les mots dit non importants. PS : c'est la variable que l'on va renvoyer
