@@ -34,7 +34,10 @@ def menu():
             print("\n\n")
         elif choice == "3":
             cible = input("\nQuel président voulez-vous cibler : ")
-            print("Le mot le plus prononcé par "+cible+" est : "+Plus_mot(cible))
+            if Plus_mot(cible) != "":
+                print("Le mot le plus prononcé par "+cible+" est : "+Plus_mot(cible))
+            else:
+                print("Erreur : Le président n'a pas été trouvé. Verifiez l'orthographe et si c'est un nom de président valide")
             print("\n\n")
         elif choice == "4":
             mot = input("\nQuel mot voulez-vous analyser : ")
