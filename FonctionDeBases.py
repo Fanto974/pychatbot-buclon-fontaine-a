@@ -130,12 +130,12 @@ def apostrophe(lettre, l):
 
     :description: Permet de remplacer l'appostrophe non pas par un espace mais en prenant en compte la lettre precedente afin de remplacer au mieux pour ne pas fausser les vecteurs TF IDF des mots
     """
-    if lettre == "l":
-        if l == -1:
+    if lettre == "l":      # Regarde si la lettre precedente est un "l" au quel cas :
+        if l == -1:        # Regarde la variable défini dans la fonction suppr_SpeCara afin de remplacer l'apposrophe suivant le "l" par un "e" ou un "a" une fois sur 2
             return "e "
         else:
             return "a "
-    else:
+    else:                  # Dans tous les autres cas l'appostrophe sera remplacer par un "e"
         return "e "
 
 def suppr_SpeCara():
