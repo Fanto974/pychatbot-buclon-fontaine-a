@@ -20,7 +20,6 @@ def who_said(directory="./cleaned/",word="Nation"):
         with open(directory + file, "r") as f:
             dico = tf(f.read())
             for val in dico:
-                print(val)
                 if val == word:
                     time_said[name] = dico[word]
 
