@@ -140,27 +140,26 @@ def apostrophe(lettre, l):
 
 def suppr_SpeCara():
     """
-    :return: les textes du fichier cleaned crée auaprevant par la fonction lower_files (qui elève les majuscules) sans leurs caractères spéciaux
+    :modifie: les textes du fichier cleaned crée auaprevant par la fonction lower_files (qui elève les majuscules) sans leurs caractères spéciaux
 
     :description: Permet de supprimer les caratères spéciaux en prenant en compte toutes les subtilitées de se changement
     """
-    l = -1        #Permet le changement de l'apporstophe au mieux
+    l = -1        #Permet le changement de l'apporstophe au mieux avec une gestion de 1/2 (c'est un paramètre a passer a la fonction appostrophe)
     liste_e = ["é","è","ê","ë"]        #Crée les listes pour permettre le remplacement des caractères spéciaux
     liste_a = ["à","â"]
     list_fichiers = list_of_files("./cleaned", ".txt")
     for fichier in list_fichiers:        # Permet d'ouvrir un fichier a la suite
         with open("./cleaned/" + fichier, "r", encoding='utf8') as fc:
             fichier_chaine = fc.read()
-            chaine_SansCaraSpe = ""
-            for i in range(len(fichier_chaine)):
-                if "a" <= fichier_chaine[i] <= "z":
-                    chaine_SansCaraSpe += fichier_chaine[i]
+            chaine_SansCaraSpe = ""      # Initialise une chaine qui ne contiendra pas de caractère spéciaux
+            for i in range(len(fichier_chaine)):                                    # 
+                if "a" <= fichier_chaine[i] <= "z":                                 # Test si la lettre qu'on regarde n'est pas un caractère spécial
+                    chaine_SansCaraSpe += fichier_chaine[i]                         # Au quel cas on la rajoute juste a la chaine sans caractère spécial
                 else:
-                    #print(fichier_chaine[i])
-                    if fichier_chaine[i] == "'":
-                        chaine_SansCaraSpe += apostrophe(fichier_chaine[i-1], l)
+                    if fichier_chaine[i] == "'":                                    # Sinon si le caractère spécial qu'on regarde est une appostrophe :
+                        chaine_SansCaraSpe += apostrophe(fichier_chaine[i-1], l)    # On appel la fonction appostrophe avec la lettre qui precéde l'appostrophe ET la variable permettant le remplacement
                         l *= -1
-                    elif fichier_chaine[i] in liste_e:
+                    elif fichier_chaine[i] in liste_e:                              # Sinon on liste tous les autres cas qui pourrais arriver et on les traites
                         chaine_SansCaraSpe += "e"
 
                     elif fichier_chaine[i] in liste_a:
@@ -177,12 +176,12 @@ def suppr_SpeCara():
 
                     else:
                         chaine_SansCaraSpe += " "
-        chaine_SansCaraSpe2 = ""
-        for i in range(len(chaine_SansCaraSpe) -1):
+        chaine_SansCaraSpe2 = ""                                                    # Initialise une autre chaine qui ne contiendera ni caractères spéciaux ni double espaces
+        for i in range(len(chaine_SansCaraSpe) -1):                                 # On parcours la chaine et on regarde si il y a des doubles espaces au quel cas on les supprime
             if chaine_SansCaraSpe[i + 1] == " " and chaine_SansCaraSpe[i] == " ":
                 chaine_SansCaraSpe2 += ""
             else:
                 chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
 
-        with open ("./cleaned/" + fichier, "w") as fc:
+        with open ("./cleaned/" + fichier, "w") as fc:                              # On modifie les fichier du dossier cleaned afin d'enlever les caratères spéciaux
             fc.write(chaine_SansCaraSpe2)
