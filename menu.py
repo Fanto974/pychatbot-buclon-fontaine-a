@@ -6,6 +6,8 @@ from Fonctionalite5 import *
 from RechercheFichier import *
 from FonctionDeBases import *
 
+
+
 def menu():
     choice = 1
     while choice != 0:
@@ -50,7 +52,10 @@ def menu():
             for val in premier_mot(mot):
                 print(val)
         elif choice == 6:
-            print("Nous n'avons pas compris la question car on va renvoyer la meme chose que le 1er choix.")
+            print("A part les mots non importants. \nLes mots que tout les présidents prononcent sont : ")
+            mots = NonImportant6()
+            for val in mots:
+                print(val, end = ", ")
         else:
             print("Veuillez entrez une autre valeur, cette valeur n'est pas prise en charge.")
         if choice != 0:
