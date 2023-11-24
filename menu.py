@@ -51,9 +51,17 @@ def menu():
             print("\n")
         elif choice == "5":
             mot = minimize_text(input("\nQuel mot voulez-vous analyser : "))
-            print("Le premier président à parler de "+mot+" est : ", end ="")
-            for val in premier_mot(mot):
-                print(val)
+            if premier_mot(mot) != set([]):
+                if len(premier_mot(mot)) == 1:
+                    print("Le premier président à parler de "+mot+" est : ", end ="")
+                    for val in premier_mot(mot):
+                        print(val)
+                else:
+                    print("Les premiers a parler de " + mot + " sont : ", end = "")
+                    for val in premier_mot(mot):
+                        print(val, end = ", ")
+            else:
+                print("Le mot que vous recherchez n'a été dit par aucun président")
         elif choice == "6":
             print("A part les mots non importants. \nLes mots que tout les présidents prononcent sont : ")
             mots = NonImportant6()
