@@ -12,5 +12,5 @@ def NonImportant():
                 occurence_mot += 1
         if occurence_mot == 0:                                   # Après avoir parcourus les 8 valeurs d'un mot, si la variable occurence_mot est toujours a 0 c'est que pour chaque texte, ce mot a un tfidf de 0. Il n'est donc pas important
             list_mots_non_important.append(dico_key[liste])      # Dans ce cas, on l'ajoute a la liste des mots non importants
-    return list_mots_non_important                               # Et enfin, on affiche cette liste
+    return list_mots_non_important                               # Et enfin, on retourne cette liste
     
