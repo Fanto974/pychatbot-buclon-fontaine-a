@@ -5,7 +5,7 @@ from Fonctionalite4 import *
 from Fonctionalite5 import *
 from RechercheFichier import *
 from FonctionDeBases import *
-
+from Fonctionalite6 import *
 
 
 def menu():
