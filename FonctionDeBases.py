@@ -3,8 +3,12 @@ from RechercheFichier import *
 
 def get_names(directory = "./speech/", file = -1, liste = -1):
     """
-    :param : Dossier contenant les fichier des discours
-    :return: list_name: liste des noms de chaque présients ayant fait un discours que l'on posséde en fichier
+    :param : 
+        Si on désire recevoir une liste de tt les présidents SANS DOUBLONS en envoyant un répertoire: ('Chemin du repertoire')
+        Si on désire recevoir le nom d'un président en fournissant un fichier :         (0, 'Nom du fichier')
+        Si on désire recevoir une liste de tt les présidents AVEC DOUBLONS en envoyant un répertoire: ('Chemin du repertoire', 0, 0)
+
+    :return: list_name: liste des noms de chaque présients ayant fait un discours que l'on posséde en fichier en supprimmant les doublons
     
     :description: Recupère les noms de tt les présidents
     """
