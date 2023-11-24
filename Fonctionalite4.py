@@ -7,7 +7,7 @@ def who_said(directory="./cleaned/",word="Nation"):
     """
     tf_idf = tfidf(directory)
     dico_key = list(idf().keys())
-    liste_names = get_names(directory, 0, 0)
+    liste_names = get_names(directory, 0)
     time_said = {}
     people_max = []
 
