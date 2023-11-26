@@ -3,7 +3,7 @@
     Paul Fontaine
 # Execution et liens:
  - Lancer le fichier menu.py et suivez les instructions
- - https://github.com/Fanto974/pychatbot-buclon-fontaine-a.git
+ - Lien vers le projet : https://github.com/Fanto974/pychatbot-buclon-fontaine-a.git
 # Fonctions :
 1. ### **Dans fonction de base**
     - _get_names :_
