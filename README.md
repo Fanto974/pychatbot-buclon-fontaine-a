@@ -32,3 +32,8 @@
         - Description : Permet de réduir toutes les majuscules d'un texte en minuscule
         - Paramètre : une chaine de charactères
         - Retourne : Une autre chaine de charactères sans majuscule
+    - _lower_files :_
+        - Appellation : lower_files(directory, end_directory)
+        - Description : Mettre le miniscule les fichiers du dossier se trouvant dans le directory et les range dans le dossier end_directory
+        - Paramètre : un chemin d'accès vers dossier source et un un chemin d'accès vers un dossier final
+        - Retourne : Rien
