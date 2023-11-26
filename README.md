@@ -36,7 +36,7 @@
     - _lower_files :_
         - Appellation : lower_files(directory, end_directory)
         - Description : Mettre le miniscule les fichiers du dossier se trouvant dans le directory et les range dans le dossier end_directory en appellant directement la fonction minimize_text()
-        - Paramètre : un chemin d'accès vers dossier source et un un chemin d'accès vers un dossier final
+        - Paramètre : une chaine de caractère contenant un chemin d'accès vers dossier source et un un chemin d'accès vers un dossier final
         - Retourne : Rien
 
     - _apostrophe :_
@@ -50,3 +50,41 @@
         - Description : Permet d'enlever les caractères spéciaux d'un texte comme (', é, è, ù, ...) avec un traitement particulier pour l'apostrophe par l'appel de la fonction apostrophe(). La fonction va réécrire les fichiers qu'elle étudie sans les caractères spéciaux. ATTENTION : la fonction prendra toujours les fichiers du dossier cleaned
         - Paramètre : Rien
         - Retourne : Rien, elle va réécrire les fichiers sans les caractères spéciaux
+
+
+2. ### **Les fonctionalités**
+    - _Fonctionalité n°1 :_
+        - Appellation : NonImportant()
+        - Description : Permet de lister tous les mots non importants soit les mots dont le TFIDF est de 0
+        - Paramètre : Rien
+        - Retourne : Une liste des mots non importants
+
+    - _Fonctionalité n°2 :_
+        - Appellation : highest_tfidf(directory)
+        - Description : Permet de donner le mots qui a le TFIDF le plus élever de tous les mots de tous les documents contenu dans le dossier passé en paramètre
+        - Paramètre : une chaine de caractère contenant un chemin d'accès vers le dossier souhaité PS : établi par défaud sur le dossier cleaned
+        - Retourne : Le mot avec le TFIDF le plus élevé
+
+    - _Fonctionalité n°3 :_
+        - Appellation : Plus_mot(president)
+        - Description : Permet de connaitre le mot le plus dit par un président dans son discours
+        - Paramètre : Une chaine de caractère contenant le nom du président souhaité
+        - Retourne : Le mot le plus dit par le président en question
+
+    - _Fonctionalité n°4 :_
+        - Appellation : who_said(directory, word)
+        - Description : Permet de lister tous les président qui ont prononcer un mot voulu et celui qui l'a prononcer le plus
+        - Paramètre : une chaine de caractère contenant un chemin d'accès vers le fichier cible et mot, une chaine de caractère contenant le mot que dont on souhaite connaitre le nom des président l'ayant prononcer dans leurs discours
+        - Retourne : Une liste des présidents ayant dit ce mot et celui qui l'a prononcer le plus de fois
+     
+    - _Fonctionalité n°5 :_
+        - Appellation : premier_mot(mot)
+        - Description : Permet de connaitre le premier président a parler d'un mot voulu. PS : On entend par le premier celui qui dit le moins de mots avant celui rentré par l'utilisateur
+        - Paramètre : mot, une cjaine de caractères contenant le mot dont on veut connaitre le premier président a en avoir parler
+        - Retourne : Le ou les noms ddes présidents a avoir dit se mot en premier. PS : "les" car il peut y avoir égalité
+     
+    - _Fonctionalité n°6 :_
+        - Appellation : NonImportant6()
+        - Description : Permet de lister tous les mots dit par tous les présidents mais qui ne font pas parti des mots banales tels que "je, tu, le, la, il, ...
+        - Paramètre : Rien
+        - Retourne : Une liste des mots dit par tous les présidents hors mot banals
