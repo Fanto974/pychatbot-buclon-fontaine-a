@@ -1,8 +1,9 @@
 # Membre du projet :
     Mathis Buclon
     Paul Fontaine
-# Execution :
+# Execution et liens:
  - Lancer le fichier menu.py
+ - https://github.com/Fanto974/pychatbot-buclon-fontaine-a.git
 # Fonctions :
 1. ### **Dans fonction de base**
     - _get_names :_
