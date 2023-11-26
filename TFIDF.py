@@ -35,21 +35,27 @@ def idf(directory="./cleaned"):
 
     return liste_des_mots
     
-def tfidf(directory="./cleaned"):          
-    liste_des_mots = idf(directory)                       #La liste des mots prends l'idf du repertoire
+def tfidf(directory="./cleaned"):
+    liste_des_mots = idf(directory) #La liste des mots prends l'idf du repertoire
     matrice_tf_idf = []
-    id = 0   #id compte l'indice du mot en cours d'analyse
-    for mot in liste_des_mots:                          #Pour chaque mot présent dans le repertoire (Dans le corpius de texte)
-        matrice_tf_idf.append([])                         #On ajoute une ligne à la matrice à TF IDF finale
-        for file in list_of_files(directory, ".txt"):     #Pour chaque fichier dans le repertoire
-            with open(directory + "/" + file, "r") as f:      #On ouvre le fichier
-                dico_mot_fichier = tf(f.read())               #On en prend le TF
+    id = 0
+    tf_list = []        
+    list_file = list_of_files(directory, ".txt") #La liste de tout les fichiers du repertoire
+    for file in list_file:                          #Pour chaque fichier:
+        with open(directory + "/" + file, "r") as f:#On l'ouvre
+            tf_list.append(tf(f.read()))            #On note son TF
+    
+    for mot in liste_des_mots:                                                          #Pour chaque mot présent dans le repertoire (Dans le corpius de texte)
+        matrice_tf_idf.append([])                                                       #On ajoute une ligne à la matrice à TF IDF finale
+        for i in range(len(list_file)):                                                 #Pour chaque fichier dans le repertoire
+            dico_mot_fichier = tf_list[i]                                               #On associe à dico_mot_fichier le tf du fichier dont-il s'occupe
             if mot in dico_mot_fichier:                   #Si le mot est dans le TF, c'est qu'il est dans le fichier que l'on vient de regarder, donc:
                 matrice_tf_idf[id].append(dico_mot_fichier[mot] * liste_des_mots[mot])    #Sur la ligne du mot en question, on ajoute une collonne dans laquel on met la produit du TF du mot multiplé par son IDF 
             else:                                    #Si le mot n'est pas dans le fichier
                 matrice_tf_idf[id].append(0.0)       #On ajoute une collonne contenant 0 car sont TF est donc nul
         id += 1#On incrémente de 1 l'id car on va passer au mot suivant.
     return matrice_tf_idf
+
 
 def write_tf_idf():
     with open("TF-IDF_matrice.txt", "w") as f:
