@@ -111,3 +111,14 @@ def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned",
     else:
         return list_nomFichier[max[1]]
 #print(doc_pertinent(TFIDF_Qestion("les doit est bien")))
+
+def most_impo_q(text):
+    max = 0
+    id = 0
+    question_tfidf = TFIDF_Qestion(text)
+    for i in range(len(question_tfidf)):
+        if question_tfidf[i] > max:
+            max = question_tfidf[i]
+            id = i
+    return list(idf().keys())[id]
+#print(most_impo_q("bonjour jour doit messieurs abaissement dames le climat change"))
