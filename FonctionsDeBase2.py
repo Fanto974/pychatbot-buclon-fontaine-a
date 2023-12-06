@@ -98,3 +98,16 @@ def similar(matrice_question,directory = "./cleaned"):
     for i in range(len(matrice)):
         list_similarities.append(scalaire(matrice_question, matrice[i])/norme_q*list_norme[i])
     return list_similarities
+
+def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned", "txt")):
+    liste_similarite = similar(matrice_question)
+    max = [0, 0]
+    for i in range(len(liste_similarite)):
+        if liste_similarite[i] > max[0]:
+            max[0] = liste_similarite[i]
+            max[1] = i
+    if max[0] == 0:
+        return "Il n'y a aucun document plus pertinent"
+    else:
+        return list_nomFichier[max[1]]
+#print(doc_pertinent(TFIDF_Qestion("les doit est bien")))
