@@ -69,3 +69,32 @@ def TFIDF_Qestion(text):
             M.append(0)
     return M
 #print(TFIDF_Qestion("bonjour jour jour messieurs abaissement dames le climat change"))
+
+def norme(vector):
+    sum = 0
+    for val in vector:
+        sum+=val
+    return sqrt(sum)
+
+def scalaire(Va, Vb):
+    sum = 0
+    if len(Va) == len(Vb):
+        for i in range(len(Va)):
+            sum += Va[i]*Vb[i]
+        return sum
+    else:
+        raise TypeError("Les 2 vecteurs doivent avoir autant de valeurs")
+
+
+def similar(matrice_question,directory = "./cleaned"):
+    list_norme = [[0] for i in range(len(compose_matrice(tfidf(directory))))]
+    norme_q = norme(matrice_question)
+    matrice = compose_matrice(tfidf(directory))
+
+    for i in range(len(matrice)):
+        list_norme[i] = norme(matrice[i])
+
+    list_similarities = []
+    for i in range(len(matrice)):
+        list_similarities.append(scalaire(matrice_question, matrice[i])/norme_q*list_norme[i])
+    return list_similarities
