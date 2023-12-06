@@ -48,3 +48,10 @@ def intersection(text, directory = "./cleaned"):
         if word in list_in_corpus:
             l_intersection.append(word)
     return l_intersection
+
+def compose_matrice(matrice):
+    new_matrice = [[0]*len(matrice) for i in range(len(matrice[0]))]
+    for i in range(len(matrice)):
+        for j in range(len(matrice[i])):
+            new_matrice[j][i] = matrice[i][j]
+    return new_matrice
