@@ -55,3 +55,17 @@ def compose_matrice(matrice):
         for j in range(len(matrice[i])):
             new_matrice[j][i] = matrice[i][j]
     return new_matrice
+
+def TFIDF_Qestion(text):
+    M = []
+    list_mots = list(idf("./cleaned").keys())
+    list_mots_Question = intersection(text)
+    tf_motQuestion = tf(text)
+    idf_motCorpus = idf("./cleaned")
+    for i in list_mots:
+        if i in list_mots_Question:
+            M.append(tf_motQuestion[i] * idf_motCorpus[i])
+        else:
+            M.append(0)
+    return M
+#print(TFIDF_Qestion("bonjour jour jour messieurs abaissement dames le climat change"))
