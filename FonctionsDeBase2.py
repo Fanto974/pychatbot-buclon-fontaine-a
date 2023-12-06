@@ -1,3 +1,7 @@
+from FonctionDeBases import *
+from TFIDF import *
+from math import *
+
 def tokenisation(text):
     text = minimize_text(text) + " "
     l = -1
@@ -35,3 +39,12 @@ def tokenisation(text):
         else:
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
     return chaine_SansCaraSpe2.split(" ")
+
+def intersection(text, directory = "./cleaned"):
+    list_in_corpus = list(idf(directory).keys())
+    l_text = tokenisation(text)
+    l_intersection = []
+    for word in l_text:
+        if word in list_in_corpus:
+            l_intersection.append(word)
+    return l_intersection
