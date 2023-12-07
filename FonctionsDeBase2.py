@@ -157,8 +157,13 @@ def tri_selec(l,m):
 #print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"]))
 
 def respond(text,directory = "./speech/"):
-    #with open(doc_pertinent(TFIDF_Qestion(text)), "r") as f:
+    
+    l_txt = tokenisation(text)
+    text = ""
+    for val in l_txt:
+        text+= val+" "
     list_word_impo = l_most_impo_q(text)
+
     sentence = ""
     found = False
     with open(directory+doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:
