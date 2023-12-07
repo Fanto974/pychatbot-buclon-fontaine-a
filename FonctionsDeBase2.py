@@ -106,10 +106,10 @@ def scalaire(Va, Vb):
     else:
         raise TypeError("Les 2 vecteurs doivent avoir autant de valeurs")
 
-def similar(matrice_question,directory = "./cleaned"):
+def similar(matrice_question,matrice,directory = "./cleaned"):
     list_norme = [[0] for i in range(len(compose_matrice(tfidf(directory))))]
     norme_q = norme(matrice_question)
-    matrice = compose_matrice(tfidf(directory))
+    
 
     for i in range(len(matrice)):
         list_norme[i] = norme(matrice[i])
@@ -120,8 +120,9 @@ def similar(matrice_question,directory = "./cleaned"):
     return list_similarities
 #print(similar(TFIDF_Qestion("les doit est bien")))
 
-def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned", "txt")):
-    liste_similarite = similar(matrice_question)
+def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned", "txt"), directory="./cleaned"):
+    matrice = compose_matrice(tfidf(directory))
+    liste_similarite = similar(matrice_question, matrice)
     max = [0, 0]
     for i in range(len(liste_similarite)):
         if liste_similarite[i] > max[0]:
@@ -131,6 +132,7 @@ def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned",
         return "Il n'y a aucun document plus pertinent"
     else:
         return list_nomFichier[max[1]]
+
 
 def most_impo_q(text):
     max = 0
