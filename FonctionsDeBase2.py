@@ -223,32 +223,4 @@ def respond_better(text, directory = "./speech/"):
 #file = (respond("Comment changer le climat"))
 
 #bonjour jour doit messieurs abaissement dames le climat change
-def list_possible_respond(text,directory = "./speech/"):
-    list_sentence = []
 
-    l_txt = tokenisation(text)
-    text = ""
-    for val in l_txt:
-        text+= val+" "
-    list_word_impo = l_most_impo_q(text)
-    
-    sentence = ""
-    found = False
-    found_word = False
-    with open(directory+doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:
-        file = f.readlines()
-        for word_impo in list_word_impo:
-            if not found_word:
-                for line in file:
-                    for word in line.split(" "):
-                        sentence += word + " "
-                        if word_impo in tokenisation(word):
-                            found = True
-                        elif "." in word or "!" in word or "?" in word:
-                            if found:
-                                list_sentence.append(sentence)
-                                found = False
-                                found_word = True
-                            else:
-                                sentence = ""
-    return list_sentence
