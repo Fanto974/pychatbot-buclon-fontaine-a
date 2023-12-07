@@ -143,7 +143,7 @@ def most_impo_q(text):
             max = question_tfidf[i]
             id = i
     return list(idf().keys())[id]
-    
+
 def l_most_impo_q(text):
     question_tfidf = TFIDF_Qestion(text)
     l_tfidf = list(idf().keys())
@@ -161,7 +161,6 @@ def l_most_impo_q(text):
     #for i in range(len(text)):
     #    print(str(text[i])+ "--->"+str(list_question_tfidf[i]))
     return tri_selec(list_question_tfidf, text)
-
 
 def tri_selec(l,m):
     final_l = []
@@ -186,7 +185,6 @@ def respond(text,directory = "./speech/"):
     for val in l_txt:
         text+= val+" "
     list_word_impo = l_most_impo_q(text)
-
     sentence = ""
     found = False
     with open(directory+doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:
@@ -204,5 +202,24 @@ def respond(text,directory = "./speech/"):
                             sentence = ""
             if found:
                 return sentence
-#print(respond("que comptez vous faire pour la crise économique du climat intergalactique"))
+#print(respond("Comment est ce que les gens doivent decider de servir la france ?"))
+
+def respond_better(text, directory = "./speech/"):
+    with open(directory+doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:#On ouvre le fichier normal (en enlevant le cleaned_) en lecture en utf8
+        file = f.read()                         #On lit le fichier
+        l_file = re.split(r"[.!?]\s*", file)    #On sépare le fichier en unne liste de phrase
+        f.close()  
+    max = 0
+    max_line = "Le fichier ne contient aucune ligne correspondant à la question."
+    for line in l_file:                                                     #Pour chaque ligne du 
+        sim = similar(TFIDF_Qestion(text), [TFIDF_Qestion(line)])[0]
+        if sim > max:
+            max = sim
+            max_line = line
+    return max_line
+#print(respond_better("france je suis climat abaissement"))
+#print(respond("france je suis climat abaissement"))
+
+#file = (respond("Comment changer le climat"))
+
 #bonjour jour doit messieurs abaissement dames le climat change
