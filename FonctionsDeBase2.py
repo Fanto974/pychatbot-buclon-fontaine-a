@@ -1,8 +1,12 @@
 from FonctionDeBases import *
 from TFIDF import *
 from math import *
+import re
 
 def tokenisation(text):
+    """
+    Renvoie une liste contenant chaque mot du texte sans accent, ni ponctuation
+    """
     text = minimize_text(text) + " "
     l = -1
     liste_e = ["é","è","ê","ë"]
@@ -40,7 +44,19 @@ def tokenisation(text):
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
     return chaine_SansCaraSpe2.split(" ")
 
+def regr(l, sep=""):
+    """
+    Regroupe une liste en une chaine de caractères séparé par un caractères donné
+    """
+    s = ""
+    for val in l:
+        s+=val+sep
+    return s
+
 def intersection(text, directory = "./cleaned"):
+    """
+    Renvoie une liste de tout les mots dans le corpus de texte
+    """
     list_in_corpus = list(idf(directory).keys())
     l_text = tokenisation(text)
     l_intersection = []
@@ -50,6 +66,9 @@ def intersection(text, directory = "./cleaned"):
     return l_intersection
 
 def compose_matrice(matrice):
+    """
+    Renvoie la composé d'une matrice donné
+    """
     new_matrice = [[0]*len(matrice) for i in range(len(matrice[0]))]
     for i in range(len(matrice)):
         for j in range(len(matrice[i])):
@@ -57,16 +76,19 @@ def compose_matrice(matrice):
     return new_matrice
 
 def TFIDF_Qestion(text, directory = "./cleaned"):
+    """
+    Renvoie une liste de tt les TFIDF des mots de la question
+    """
     M = []
     list_mots = list(idf(directory).keys())
     list_mots_Question = intersection(text)
-    tf_motQuestion = tf(text)
+    tf_motQuestion = tf(regr(tokenisation(text), " "))
     idf_motCorpus = idf(directory)
     for i in list_mots:
         if i in list_mots_Question:
             M.append(tf_motQuestion[i] * idf_motCorpus[i])
         else:
-            M.append(0)
+            M.append(0.0)
     return M
 
 def norme(vector):
@@ -83,7 +105,6 @@ def scalaire(Va, Vb):
         return sum
     else:
         raise TypeError("Les 2 vecteurs doivent avoir autant de valeurs")
-
 
 def similar(matrice_question,directory = "./cleaned"):
     list_norme = [[0] for i in range(len(compose_matrice(tfidf(directory))))]
