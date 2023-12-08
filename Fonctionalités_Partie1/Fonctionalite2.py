@@ -1,5 +1,5 @@
 from TFIDF import *
-from RechercheFichier import * 
+from RechercheFichier import *
 
 def highest_tfidf(directory="./cleaned/"):
     tf_idf = tfidf(directory)

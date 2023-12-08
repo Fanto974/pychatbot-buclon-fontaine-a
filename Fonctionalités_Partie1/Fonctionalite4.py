@@ -1,6 +1,4 @@
-from TFIDF import *
-from FonctionDeBases import *
-from Fonctionalite1 import *
+from Fonctionalités_Partie1.Fonctionalite1 import *
 
 def who_said(directory="./cleaned/",word="Nation"):
     """

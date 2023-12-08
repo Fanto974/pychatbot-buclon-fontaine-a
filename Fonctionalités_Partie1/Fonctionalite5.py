@@ -1,4 +1,3 @@
-from RechercheFichier import *
 from FonctionDeBases import *
 
 def premier_mot(mot):

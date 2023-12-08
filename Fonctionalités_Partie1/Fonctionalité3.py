@@ -1,18 +1,17 @@
-from RechercheFichier import *
 from FonctionDeBases import *
 from TFIDF import *
 
-def Plus_mot(president, directory = "./cleaned"):
+def Plus_mot(president):
     """
     :param : Le nom d'un président
     :return: mot_max[1]: Le mot le plus répéter par se président
     
     :description: Permet d'identifier le mot le plus dit par un président
     """
-    list_fichier = list_of_files(directory, "txt")                # Récupère tous les noms des fichiers textes contenus dans le dossier "cleaned"
+    list_fichier = list_of_files("./cleaned", "txt")                # Récupère tous les noms des fichiers textes contenus dans le dossier "cleaned"
     mot_max = [0, ""]                                               # On initialise une liste qui aura 2 valeurs, le nombre d'occurence la plus élever de tous les mots qu'on aura parcourus dit par un président et une deuxième valeur qui contiendra se mot en question
     for i in range(len(list_fichier)):                              # On fait une boucle qui permettera d'ouvrir tous les fichiers
-        with open(directory+"/"+ list_fichier[i], "r") as fi:       # On ouvre le fichier ciblé actuellement
+        with open("./cleaned/" + list_fichier[i], "r") as fi:       # On ouvre le fichier ciblé actuellement
             nom = get_names(-1, list_fichier[i])                    # On récupère grâce a la fonction get_name() le nom du président du fichier que l'on a ouvert
             if minimize_text(nom) == minimize_text(president):      # On verifie que le discours que l'on étudie actuellement a bien été prononcer par le président saisi par l'utilisteur
                 text = fi.readline()                                # On en extrait le contenu si c'est le cas
