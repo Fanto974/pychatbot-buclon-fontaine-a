@@ -1,8 +1,10 @@
 from FonctionDeBases import *
 from TFIDF import *
 from math import *
+import time
 import re
 
+a=time.process_time()
 def tokenisation(text):
     """
     Renvoie une liste contenant chaque mot du texte sans accent, ni ponctuation
@@ -75,15 +77,23 @@ def compose_matrice(matrice):
             new_matrice[j][i] = matrice[i][j]
     return new_matrice
 
-def TFIDF_Qestion(text, directory = "./cleaned"):
+
+def TFIDF_Qestion(text, directory = "./cleaned", idf_given=False, key_given=False):
     """
     Renvoie une liste de tt les TFIDF des mots de la question
     """
+    if idf_given:
+        idf_dir = idf_given
+    else:
+        idf_dir = idf(directory)
+    if key_given:
+        list_mots = key_given
+    else:
+        list_mots = list(idf_dir.keys())
     M = []
-    list_mots = list(idf(directory).keys())
     list_mots_Question = intersection(text)
     tf_motQuestion = tf(regr(tokenisation(text), " "))
-    idf_motCorpus = idf(directory)
+    idf_motCorpus = idf_dir
     for i in list_mots:
         if i in list_mots_Question:
             M.append(tf_motQuestion[i] * idf_motCorpus[i])
@@ -204,23 +214,35 @@ def respond(text,directory = "./speech/"):
                 return sentence
 #print(respond("Comment est ce que les gens doivent decider de servir la france ?"))
 
-def respond_better(text, directory = "./speech/"):
+def respond_better(text, directory = "./speech/", directory_clean = "./cleaned"):
+    #________Lecture du fichier phrase par phrase________
     with open(directory+doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:#On ouvre le fichier normal (en enlevant le cleaned_) en lecture en utf8
         file = f.read()                         #On lit le fichier
-        l_file = re.split(r"[.!?]\s*", file)    #On sépare le fichier en unne liste de phrase
-        f.close()  
+        l_file = re.split(r"[.!?]\s*", file)     #On sépare le fichier en unne liste de phrase possible contenant un des mots de la question
+        f.close()
+    
+    #________Calcul à l'avance________
+    idf_to_give = idf(directory_clean)      #On calcule à l'avance l'idf
+    key_to_give = list(idf_to_give.keys())  #On note à l'avance les clés de l'idf
+   
+   #________Calcul des phrases utiles à analyser________
+    l_check = []
+    for line in l_file:                     #Pour chaque ligne
+        for val in (tokenisation(text)):    #On va regarder chaque valeur de la question
+            if val in line:                 #Si le mot de la question est dans la phrase
+                l_check.append(line)        #On ajoute donc cette phrase à notre liste de phrase
+                break                       #On quitte la boucle de val car on peut passer à la phrase suivante, cela permet d'éviter les doublons de phrases
+    
+    #________Calcul du max de la similarité Question/Phrase________
     max = 0
     max_line = "Le fichier ne contient aucune ligne correspondant à la question."
-    for line in l_file:                                                     #Pour chaque ligne du 
-        sim = similar(TFIDF_Qestion(text), [TFIDF_Qestion(line)])[0]
+    for line in l_check:                                                    #Pour chaque ligne du 
+        sim = similar(TFIDF_Qestion(text, directory_clean,idf_to_give, key_to_give), [TFIDF_Qestion(line, directory_clean,idf_to_give, key_to_give)])[0]
         if sim > max:
             max = sim
             max_line = line
     return max_line
-#print(respond_better("france je suis climat abaissement"))
-#print(respond("france je suis climat abaissement"))
-
-#file = (respond("Comment changer le climat"))
-
 #bonjour jour doit messieurs abaissement dames le climat change
 
+print(respond_better("france je suis climat abaissement"))
+print(time.process_time()-a)
