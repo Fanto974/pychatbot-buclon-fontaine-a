@@ -1,9 +1,12 @@
+from Fonctionalités_Partie1.Fonctionalite1 import *
 from Fonctionalités_Partie1.Fonctionalite2 import *
 from Fonctionalités_Partie1.Fonctionalité3 import *
 from Fonctionalités_Partie1.Fonctionalite4 import *
 from Fonctionalités_Partie1.Fonctionalite5 import *
 from Fonctionalités_Partie1.Fonctionalite6 import *
-
+from RechercheFichier import *
+from FonctionDeBases import *
+from FonctionsDeBase2 import *
 
 def menu():
     choice = "1"
