@@ -9,7 +9,9 @@ def tokenisation(text):
     """
     Renvoie une liste contenant chaque mot du texte sans accent, ni ponctuation
     """
-    text = minimize_text(text) + " "
+    text = minimize_text(text) + " " #Ajoute un espace à la fin du texte + un espace pour éviter un bug plus tard
+    
+    #________Supression des caractères spéciaux________
     l = -1
     liste_e = ["é","è","ê","ë"]
     liste_a = ["à","â"]
@@ -82,14 +84,14 @@ def TFIDF_Qestion(text, directory = "./cleaned", idf_given=False, key_given=Fals
     """
     Renvoie une liste de tt les TFIDF des mots de la question
     """
-    if idf_given:
-        idf_dir = idf_given
-    else:
+    if idf_given == False:
         idf_dir = idf(directory)
-    if key_given:
-        list_mots = key_given
     else:
+        idf_dir = idf_given
+    if key_given ==  False:
         list_mots = list(idf_dir.keys())
+    else:
+        list_mots = key_given
     M = []
     list_mots_Question = intersection(text)
     tf_motQuestion = tf(regr(tokenisation(text), " "))
@@ -126,7 +128,10 @@ def similar(matrice_question,matrice,directory = "./cleaned"):
 
     list_similarities = []
     for i in range(len(matrice)):
-        list_similarities.append(scalaire(matrice_question, matrice[i])/norme_q*list_norme[i])
+        if norme_q*list_norme[i] !=0:
+            list_similarities.append(scalaire(matrice_question, matrice[i])/norme_q*list_norme[i])
+        else:
+            list_similarities.append(0.0)
     return list_similarities
 #print(similar(TFIDF_Qestion("les doit est bien")))
 
@@ -139,10 +144,9 @@ def doc_pertinent(matrice_question, list_nomFichier = list_of_files("./cleaned",
             max[0] = liste_similarite[i]
             max[1] = i
     if max[0] == 0:
-        return "Il n'y a aucun document plus pertinent"
+        return list_nomFichier[0]
     else:
         return list_nomFichier[max[1]]
-
 
 def most_impo_q(text):
     max = 0
@@ -235,7 +239,7 @@ def respond_better(text, directory = "./speech/", directory_clean = "./cleaned")
     
     #________Calcul du max de la similarité Question/Phrase________
     max = 0
-    max_line = "Le fichier ne contient aucune ligne correspondant à la question."
+    max_line = "Je n'ai pu trouver aucune correspondance entre votre entrée et les textes qui me sont fournies"
     for line in l_check:                                                    #Pour chaque ligne du 
         sim = similar(TFIDF_Qestion(text, directory_clean,idf_to_give, key_to_give), [TFIDF_Qestion(line, directory_clean,idf_to_give, key_to_give)])[0]
         if sim > max:
@@ -244,5 +248,7 @@ def respond_better(text, directory = "./speech/", directory_clean = "./cleaned")
     return max_line
 #bonjour jour doit messieurs abaissement dames le climat change
 
-print(respond_better("france je suis climat abaissement"))
-print(time.process_time()-a)
+#print(respond_better("Quel est la position de la France sur la solidarité économique entre les pays ?"))
+
+
+print("\n\nProcess time: ",time.process_time()-a)
