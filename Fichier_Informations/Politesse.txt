@@ -1,0 +1,5 @@
+comment : Apres analyse,
+pourquoi : Car,
+peux-tu : Oui bien sur !
+es-ce-que : Car,
+salut : Bonjour
