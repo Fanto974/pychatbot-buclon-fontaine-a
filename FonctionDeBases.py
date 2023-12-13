@@ -188,3 +188,4 @@ def suppr_SpeCara(directory):
 
         with open (directory + fichier, "w") as fc:                              # On modifie les fichier du dossier cleaned afin d'enlever les caratères spéciaux
             fc.write(chaine_SansCaraSpe2)
+
