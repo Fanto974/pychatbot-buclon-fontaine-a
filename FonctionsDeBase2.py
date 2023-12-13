@@ -96,7 +96,7 @@ def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False)
     else:
         list_mots = list(idf_dir.keys())
     M = []
-    list_mots_Question = intersection(text)
+    list_mots_Question = intersection(text, directory)
     tf_motQuestion = tf(regr(tokenisation(text), " "))
     idf_motCorpus = idf_dir
     for i in list_mots:
@@ -141,9 +141,10 @@ def similar(matrice_question, matrice, directory="./cleaned"):
 
 # print(similar(TFIDF_Qestion("les doit est bien")))
 
-def doc_pertinent(matrice_question, list_nomFichier=list_of_files("./cleaned", "txt"), directory="./cleaned"):
+def doc_pertinent(matrice_question, directory="./cleaned"):
+    list_nomFichier = list_of_files(directory, "txt")
     matrice = compose_matrice(tfidf(directory))
-    liste_similarite = similar(matrice_question, matrice)
+    liste_similarite = similar(matrice_question, matrice, directory)
     if liste_similarite == -1:
         return -1
     max = [0, 0]
@@ -157,10 +158,10 @@ def doc_pertinent(matrice_question, list_nomFichier=list_of_files("./cleaned", "
         return list_nomFichier[max[1]]
 
 
-def most_impo_q(text):
+def most_impo_q(text, directory="./cleaned"):
     max = 0
     id = 0
-    question_tfidf = TFIDF_Qestion(text)
+    question_tfidf = TFIDF_Qestion(text, directory)
     for i in range(len(question_tfidf)):
         if question_tfidf[i] > max:
             max = question_tfidf[i]
@@ -168,8 +169,8 @@ def most_impo_q(text):
     return list(idf().keys())[id]
 
 
-def l_most_impo_q(text):
-    question_tfidf = TFIDF_Qestion(text)
+def l_most_impo_q(text, directory="./cleaned"):
+    question_tfidf = TFIDF_Qestion(text, directory)
     l_tfidf = list(idf().keys())
     list_question_tfidf = []
     text = tokenisation(text)
@@ -204,7 +205,7 @@ def tri_selec(l, m):
 # print(l_most_impo_q("bonjour jour doit messieurs abaissement dames le climat change"))
 # print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"]))
 
-def respond(text, directory="./speech/"):
+def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     l_txt = tokenisation(text)
     text = ""
     for val in l_txt:
@@ -212,7 +213,7 @@ def respond(text, directory="./speech/"):
     list_word_impo = l_most_impo_q(text)
     sentence = ""
     found = False
-    with open(directory + doc_pertinent(TFIDF_Qestion(text))[8:], "r", encoding="utf-8") as f:
+    with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
         for word_impo in list_word_impo:
             for line in file:
@@ -233,7 +234,7 @@ def respond(text, directory="./speech/"):
 
 def respond_better(text, directory="./speech/", directory_clean="./cleaned"):
     # ________Lecture du fichier phrase par phrase________
-    doc_pert = doc_pertinent(TFIDF_Qestion(text))
+    doc_pert = doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)
     if doc_pert == -1:
         return -1
     with open(directory + doc_pert[8:], "r", encoding="utf-8") as f:  # On ouvre le fichier normal (en enlevant le cleaned_) en lecture en utf8
@@ -321,3 +322,4 @@ def reponse_finale(text, directory="./speech/", directory_clean="./cleaned"):
         return print(poli[mot] + rep + "."), True
     else:
         return print(rep), False
+#reponse_finale("Comment une nation peut-elle prendre soin du climat ?")
