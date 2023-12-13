@@ -311,9 +311,9 @@ def politesse(mode = "recup"):
             print("Ok")
 #print(politesse())
 
-def reponse_finale(text):
+def reponse_finale(text, directory="./speech/", directory_clean="./cleaned"):
     poli = politesse()
-    rep = respond_better(text)
+    rep = respond_better(text, directory, directory_clean)
     if rep == -1:
         return print("Aucun des mots de la question n'est présent dans le corpus de documents"), True
     mot = minimize_text(text.split(" ")[0])
@@ -321,4 +321,3 @@ def reponse_finale(text):
         return print(poli[mot] + rep + "."), True
     else:
         return print(rep), False
-#reponse_finale("Comment une nation peut-elle prendre soin du climat ?")
