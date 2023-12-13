@@ -78,5 +78,5 @@ def menu():
         else:
             print("Veuillez entrez une autre valeur, cette valeur n'est pas prise en charge.")
         if choice != "0":
-            pause = input()
+            pause = input("APPUYEZ SUR ENTREE")
 menu()
