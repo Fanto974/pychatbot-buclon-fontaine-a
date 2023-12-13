@@ -1,6 +1,6 @@
 from FonctionDeBases import *
-
-def premier_mot(mot):
+from FonctionsDeBase2 import *
+def premier_mot(mo):
     """
 
     :param: mot: Un mot dont on veut rechercher qui l'a dit en premier
@@ -9,6 +9,7 @@ def premier_mot(mot):
     """
     mi = -1                                                    # On initialise une variable qui va compter le nombre de mots dit par chaque président avant le mot rechercher
     mi_pre = []                                                # On initialise une liste qui contiendra le ou les noms des présidents qui ont dit se mot en premier
+    mot = tokenisation(mo)[0]
     for fichier in list_of_files("./cleaned", ".txt"):         # On crée un boucle qui va nous permettre d'ouvrir tous les fichiers
         with open("./cleaned/" + fichier, "r") as f:           # on ouvre le fichier sur lequel on pointe actuellement
             text = f.read()                                    # On met son contenu dans une variable
@@ -27,4 +28,4 @@ def premier_mot(mot):
                 mi_pre.append(get_names(0, fichier))
     return set(mi_pre)                                         # Pour terminer on retourne le nom de tous les présidents sans doublons qui ont dit le mot rechercher en premier
 #Commande de test
-#print(premier_mot("messieurs"))
+print(premier_mot("messieurs"))
