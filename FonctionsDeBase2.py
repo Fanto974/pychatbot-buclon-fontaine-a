@@ -232,7 +232,8 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
 
 # print(respond("Comment est ce que les gens doivent decider de servir la france ?"))
 
-def respond_better(text, directory="./speech/", directory_clean="./cleaned"):
+def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
+
     # ________Lecture du fichier phrase par phrase________
     doc_pert = doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)
     if doc_pert == -1:
@@ -249,8 +250,9 @@ def respond_better(text, directory="./speech/", directory_clean="./cleaned"):
     # ________Calcul des phrases utiles à analyser________
     l_check = []
     for line in l_file:  # Pour chaque ligne
+        line_toke = tokenisation(line)
         for val in (tokenisation(text)):  # On va regarder chaque valeur de la question
-            if val in line:  # Si le mot de la question est dans la phrase
+            if val in line_toke:  # Si le mot de la question est dans la phrase
                 l_check.append(line)  # On ajoute donc cette phrase à notre liste de phrase
                 break  # On quitte la boucle de val car on peut passer à la phrase suivante, cela permet d'éviter les doublons de phrases
 
@@ -268,6 +270,7 @@ def respond_better(text, directory="./speech/", directory_clean="./cleaned"):
 #print(most_impo_q("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
 #print(doc_pertinent(TFIDF_Qestion("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?")))
 #print(respond_better("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
+#print(respond_better("MESSIEURS, DE CE JOUR, DATE UNE ERE NOUVELLE DE LA POLITIQUE FRANCAISE"))
 #print(time.process_time() - a)
 
 def politesse(mode = "recup"):
@@ -312,15 +315,17 @@ def politesse(mode = "recup"):
             print("Ok")
 #print(politesse())
 
-def reponse_finale(text, directory="./speech/", directory_clean="./cleaned"):
+def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
     poli = politesse()
     rep = respond_better(text, directory, directory_clean)
     if rep == -1:
         return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
     mot = minimize_text(text.split(" ")[0])
-    mot = tokenisation(mot)[0]
+    if len(tokenisation(mot)) == 1:
+        mot = tokenisation(mot)[0]
     if mot in poli.keys():
         return (poli[mot] + " " + minimize_text(rep) + "."), True
     else:
         return (rep), False
-#reponse_finale("Comment une nation peut-elle prendre soin du climat ?")
+#print(reponse_finale("Peux-tu une nation peut-elle prendre soin du climat ?"))
+
