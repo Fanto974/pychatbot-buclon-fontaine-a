@@ -12,7 +12,7 @@ def menu():
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
         line = "______________________________________________________________________________________________"
         print(line)
-        print("MENU:\n - 0: Quitter\n - 1: Liste des mots avec un TF-IDF de 0\n - 2: Affiche le mot avec le TF-IDF le plus élevé\n - 3:Affcihe le mot le plus répété par un président\n - 4:Indique le noms des présidents ayant prononcé un certain mot\n - 5:Indique le premier président à parler d'un mot donné\n - 6: Indique les mots dont tout le monde à parlé\n - 7: Accéder au chat bot")
+        print("MENU:\n - 0: Quitter\n - 1: Liste des mots avec un TF-IDF de 0\n - 2: Affiche le mot avec le TF-IDF le plus élevé\n - 3: Affcihe le mot le plus répété par un président\n - 4: Indique le noms des présidents ayant prononcé un certain mot\n - 5: Indique le premier président à parler d'un mot donné\n - 6: Indique les mots dont tout le monde à parlé\n - 7: Accéder au chat bot")
         print(line+"\n\n\n")
         choice = input("Votre choix : ")
         if choice == "0":
