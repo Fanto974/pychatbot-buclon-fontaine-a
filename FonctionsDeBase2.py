@@ -318,7 +318,7 @@ def reponse_finale(text):
         return print("Aucun des mots de la question n'est présent dans le corpus de documents"), True
     mot = minimize_text(text.split(" ")[0])
     if mot in poli.keys():
-        return print(poli[mot] + rep), True
+        return print(poli[mot] + rep + "."), True
     else:
         return print(rep), False
 #reponse_finale("Comment une nation peut-elle prendre soin du climat ?")
