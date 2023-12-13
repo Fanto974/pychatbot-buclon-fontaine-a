@@ -82,7 +82,7 @@ def menu():
         else:
             print("Veuillez saisir une autre valeur, cette valeur n'est pas prise en charge")
         if choice != "0":
-            input("Pressez espace")
+            input("Pressez entrée")
 
 def chat_bot():
     global chatBot_directory
