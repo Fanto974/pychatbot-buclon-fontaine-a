@@ -1,10 +1,13 @@
 from Fonctionalités_Partie1.Fonctionalite1 import *
+from FonctionsDeBase2 import *
 
-def who_said(directory="./cleaned/",word="Nation"):
+
+def who_said(directory="./cleaned/", word="Nation"):
     """
     :desc: Fonction qui dit quel président on prononcer un mot donné
     """
     word = minimize_text(word)             #Enleve les majuscules
+    word = tokenisation(word)[0]
     tf_idf = tfidf(directory)               #La matrice Tf-IDF
     dico_key = list(idf().keys())           #La liste de tout les mots de TF-IDF
     liste_names = get_names(directory, 0, 0)      #Le nom de tout les présidents
