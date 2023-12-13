@@ -5,10 +5,10 @@ from Fonctionalités_Partie1.Fonctionalite5 import *
 from Fonctionalités_Partie1.Fonctionalite6 import *
 from FonctionsDeBase2 import *
 from os import *
+
 global chatBot_directory
 chatBot_directory = "./Dossiers_Thematiques/speech/"
 
-#print(respond_better("On doit manger"))
 def menu():
     directory = chatBot_directory
     for file in list_of_files("./cleaned_chatBot", ".txt"):
@@ -50,7 +50,7 @@ def menu():
             print("\n\n")
         elif choice == "4":
             mot = input("\nQuel mot voulez-vous analyser : ")
-            who_s = who_said("./cleaned/",mot)
+            who_s = who_said("./cleaned/", mot)
             if who_s[1] != []:
                 print("Le mot "+mot+" a été prononcé par :")
                 for val in who_s[1]:
