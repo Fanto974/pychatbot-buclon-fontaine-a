@@ -126,7 +126,6 @@ def lower_files(directory = "./speech/", end_directory="./cleaned/cleaned_"):
             np.close()
         with open(end_directory+file, "w") as np:
             np.write(list_speech[k])                        #On écrit dans le nouveau fichier le texe en minuscules
-
 def apostrophe(lettre, l):
     """
     :param lettre, l: La lettre qui précède l'appostrophe, la variable permettant un changement du remplacement 1 fois sur 2.
@@ -142,7 +141,7 @@ def apostrophe(lettre, l):
     else:                  # Dans tous les autres cas l'appostrophe sera remplacer par un "e"
         return "e "
 
-def suppr_SpeCara():
+def suppr_SpeCara(directory):
     """
     :modifie: les textes du fichier cleaned crée auaprevant par la fonction lower_files (qui elève les majuscules) sans leurs caractères spéciaux
 
@@ -151,9 +150,9 @@ def suppr_SpeCara():
     l = -1        #Permet le changement de l'apporstophe au mieux avec une gestion de 1/2 (c'est un paramètre a passer a la fonction appostrophe)
     liste_e = ["é","è","ê","ë"]        #Crée les listes pour permettre le remplacement des caractères spéciaux
     liste_a = ["à","â"]
-    list_fichiers = list_of_files("./cleaned", ".txt")
+    list_fichiers = list_of_files(directory, ".txt")
     for fichier in list_fichiers:        # Permet d'ouvrir un fichier a la suite
-        with open("./cleaned/" + fichier, "r", encoding='utf8') as fc:
+        with open(directory + fichier, "r", encoding='utf8') as fc:
             fichier_chaine = fc.read()
             chaine_SansCaraSpe = ""      # Initialise une chaine qui ne contiendra pas de caractère spéciaux
             for i in range(len(fichier_chaine)):                                    # 
@@ -187,5 +186,5 @@ def suppr_SpeCara():
             else:
                 chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
 
-        with open ("./cleaned/" + fichier, "w") as fc:                              # On modifie les fichier du dossier cleaned afin d'enlever les caratères spéciaux
+        with open (directory + fichier, "w") as fc:                              # On modifie les fichier du dossier cleaned afin d'enlever les caratères spéciaux
             fc.write(chaine_SansCaraSpe2)
