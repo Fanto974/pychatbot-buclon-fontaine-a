@@ -18,7 +18,7 @@ def menu():
     directory = "./Dossiers_Thematiques/speech/"
     choice = "1"
     while choice != "0":
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n"*15)
         line = "______________________________________________________________________________________________"
         print(line)
         print("MENU:\n - Bot: accès au chatbot\n - 0: Quitter\n - 1: Liste des mots avec un TF-IDF de 0\n - 2: Affiche le mot avec le TF-IDF le plus élevé\n - 3: Affiche le mot le plus répété par un président\n - 4: Indique le noms des présidents ayant prononcé un certain mot\n - 5: Indique le premier président à parler d'un mot donné\n - 6: Indique les mots dont tout le monde à parlé\n")
@@ -88,7 +88,7 @@ def chat_bot():
     global chatBot_directory
     line = "______________________________________________________________________________________________"
     directory_clean = "./cleaned_chatBot"
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n"*15)
     print(line)
     print("Bienvenue dans le menu du chat bot,\nNous avons 2 mode de réponse différrent\n 0: Retour\n 1 - Mode réponse rapide\n 2 - Mode de réponse complexe\n 3 - Info sur les 2 modes\n 4 - Changer de base de donnée \n          Directory actuel: ",chatBot_directory)
     print(line)
@@ -105,7 +105,10 @@ def chat_bot():
         print("\n\n0 - Quitter le chat bot\nSinon énoncez votre question")
         while question != "0":
             question = input("Vous : ")
-            if question != "0":
+            if "quelle note merite" in regr(tokenisation(question)," "):
+                print("\nChatBot : ", end= " ")
+                print("Ils mériteraient la note de 20/20 sans aucun doute\n")
+            elif question != "0":
                 print("\nChatBot : ", end= " ")
                 rep = reponse_finale(question, chatBot_directory, directory_clean)
                 print(rep[0], "\n")
