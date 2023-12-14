@@ -4,7 +4,7 @@
 # Execution et liens:
  - Lancer le fichier menu.py et suivez les instructions
  - Lien vers le projet : https://github.com/Fanto974/pychatbot-buclon-fontaine-a.git
-# Fonctions :
+# Fonctions Partie 1:
 1. ### **Dans fonction de base**
     - _get_names :_
         - Appellation : Voir les conditons ci-dessous
@@ -88,3 +88,6 @@
         - Description : Permet de lister tous les mots dit par tous les présidents mais qui ne font pas parti des mots banales tels que "je, tu, le, la, il, ...
         - Paramètre : Rien
         - Retourne : Une liste des mots dit par tous les présidents hors mot banals
+     
+# Fonction Partie 2
+1. ### **Dans fonction de base 2**
