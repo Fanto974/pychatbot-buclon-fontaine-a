@@ -9,7 +9,6 @@ a = time.process_time()
 
 def tokenisation(text):
     """
-
     :param : STR: une chaîne de caractères contenant une phrase
     :return: list: une liste contenant chaque mot du texte sans accent, ni majuscules, ni ponctuation
 
@@ -55,27 +54,30 @@ def tokenisation(text):
 
 def regr(l, sep=""):
     """
-
     :param : List: une liste contenant des chaines de caractères
            : STR: Une chaîne de caractère qui ne contiendra un caractère qui fera office de séparateur
     :return: STR: une chaîne de caractères qui contiendra tout les mots de la liste avec entre chacun un caractère donné
 
     :descirption: Change une liste de mot en une chaine de caractères
     """
-    s = ""
-    for val in l:
+    s = ""                    # On crée une chaîne de caractère vide qui contiendra notre phrase
+    for val in l:             # On parcours la liste et on la remplit
         s += val + sep
     return s
 
 
 def intersection(text, directory="./cleaned"):
     """
-    Renvoie une liste de tout les mots dans le corpus de texte
+    :param : STR: une chaîne de caractères qui contiendra le texte de la question
+           : STR: Un chemin d'accès vers le répértoire dont on veut analyser l'intersection
+    :return: List: Une liste des mots présent et dans la question et dans le corpus de documents
+
+    :descirption: Analyse tous les mots de la question et ne retient que ceux qui sont également présent dans le corpus de document du dossier passé en paramère
     """
-    list_in_corpus = list(idf(directory).keys())
-    l_text = tokenisation(text)
-    l_intersection = []
-    for word in l_text:
+    list_in_corpus = list(idf(directory).keys())        # On initalise une liste qui contient tous les mots du corpus de document du dossier en paramètre
+    l_text = tokenisation(text)                         # On tokenise le texte pour le plus avoir ni de majuscule ni de caractères spécieux qui pourrais géner la comparaison
+    l_intersection = []                                 # On initalise une liste qui contiendra les mot présent dans la question et le corpus
+    for word in l_text:                                 # On parcours les mots de la question et on regarde si ils sont dans le corpus si c'est le cas on les ajoutes a la liste
         if word in list_in_corpus:
             l_intersection.append(word)
     return l_intersection
@@ -83,7 +85,10 @@ def intersection(text, directory="./cleaned"):
 
 def compose_matrice(matrice):
     """
-    Renvoie la composé d'une matrice donné
+    :param : List: une liste de liste qui contient la matrice des mots du corpus
+    :return: List: La meme liste de liste mais inversée
+
+    :descirption: Permet d'inverser la matrice d'un corpus de document
     """
     new_matrice = [[0] * len(matrice) for i in range(len(matrice[0]))]
     for i in range(len(matrice)):
@@ -94,25 +99,31 @@ def compose_matrice(matrice):
 
 def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False):
     """
-    Renvoie une liste de tt les TFIDF des mots de la question
+    :param : STR: une chaîne de caractères qui contiendra le texte de la question
+           : STR: Un chemin d'accès vers le répértoire nétoyé des fichiers du corpus de doc souhaité
+           :    : ????????????????????????????????
+           :    : ?????????????????????????????
+    :return: List: une liste de tout les TFIDF des mots de la question
+
+    :descirption: Calcule pour caque mot de la question son TFIDF
     """
-    if idf_given:
+    if idf_given:                                                    # Permet d'utiliser les TFIDF de certains mot donnés (pour ne pas devoir calculer les IDF de tous les mots du corpus)
         idf_dir = idf_given
-    else:
+    else:                                                            # Si on n'a pas donné de mots précis on calcule les IDF de tous les mots du corpus
         idf_dir = idf(directory)
-    if key_given:
+    if key_given:                                                    # Permet d'utiliser certain mot donnés (pour ne pas devoir récupérer tous les mots du corpus)
         list_mots = key_given
-    else:
-        list_mots = list(idf_dir.keys())
+    else:                                                            # Si on n'a pas donné de mot précis on récupère tous les mots du corpus
+        list_mots = list(idf_dir.keys())                             
     M = []
-    list_mots_Question = intersection(text, directory)
-    tf_motQuestion = tf(regr(tokenisation(text), " "))
+    list_mots_Question = intersection(text, directory)               # On récupère tous les mots de la question
+    tf_motQuestion = tf(regr(tokenisation(text), " "))               # On récupère le TF de tous les mots de la question
     idf_motCorpus = idf_dir
     for i in list_mots:
         if i in list_mots_Question:
-            M.append(tf_motQuestion[i] * idf_motCorpus[i])
+            M.append(tf_motQuestion[i] * idf_motCorpus[i])           # Pour chaque mot du corpus présent dans la question on lui multiplie son TF et son IDF afin d'obtenir son TFIDF
         else:
-            M.append(0.0)
+            M.append(0.0)                                            # Si le mot n'est pas présent dans la question alors on lui met un TFIDF de 0
     return M
 
 
