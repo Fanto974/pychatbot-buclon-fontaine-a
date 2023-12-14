@@ -118,10 +118,14 @@ def chat_bot():
         print("\n\nLe 1er mode affiche la phrase contenant la première occurence du mot de la question ayant le score TF-IDF le plus élevé\nDans le document ayant le plus grande similitude trouvé à, l'aide de la similarit cosinus\n\n\nLe 2eme mode va récuperer le même document que la 1ere methode\nVa calculer le vecteur TF-IDF de chaque phrase du texte\nPuis comparé celle-ci avec le TF-IDF de la questionà l'aide la similarté cosinus\nCela prend donc plus de temps mais donne une réponse trouvé d'un manière beaucoup plus cohérente.\n\n")
     elif choix == "4":
         print("Directory : ", chatBot_directory)
+        print("Liste des directory disponibles: ")
+        for file in list_of_files("./Dossiers_Thematiques", ""):
+            print("     -",file)
         print("Entrez 0 pour ne pas le modifier")
         val = input("Dans quel directory voulez-vous utiliser le chat bot : ")
         if val != "0":
             directory = "./Dossiers_Thematiques/" + val + "/"
+            
             for file in list_of_files("./cleaned_chatBot", ".txt"):
                 os.remove("./cleaned_chatBot/" + str(file))
             lower_files(directory, "./cleaned_chatBot/cleaned_")
