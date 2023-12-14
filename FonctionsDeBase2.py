@@ -9,14 +9,18 @@ a = time.process_time()
 
 def tokenisation(text):
     """
-    Renvoie une liste contenant chaque mot du texte sans accent, ni ponctuation
+
+    :param : STR: une chaîne de caractères contenant une phrase
+    :return: list: une liste contenant chaque mot du texte sans accent, ni majuscules, ni ponctuation
+
+    :descirption: Minimize le texte passé en paramètre et enlève de celui-ci tout les caractères spéciaux
     """
-    text = minimize_text(text) + " "
-    l = -1
-    liste_e = ["é", "è", "ê", "ë"]
+    text = minimize_text(text) + " "                                    # On enlève les majuscules du texte
+    l = -1                                                              # Pour la gestion de l'algorithme
+    liste_e = ["é", "è", "ê", "ë"]                                      
     liste_a = ["à", "â"]
-    chaine_SansCaraSpe = ""
-    for i in range(len(text)):
+    chaine_SansCaraSpe = ""                                             # On crée une chaîne de caractères qui ne contienderas pas de caractères spéciaux
+    for i in range(len(text)):                                          # On parcours le texte et on enlève les caractères spéciaux
         if "a" <= text[i] <= "z":
             chaine_SansCaraSpe += text[i]
         else:
@@ -40,18 +44,23 @@ def tokenisation(text):
 
             else:
                 chaine_SansCaraSpe += " "
-    chaine_SansCaraSpe2 = ""
-    for i in range(len(chaine_SansCaraSpe) - 1):
+    chaine_SansCaraSpe2 = ""                                                           # On initialise une 2e chaine de caractères afin d'enlever les doubles espaces générés
+    for i in range(len(chaine_SansCaraSpe) - 1):                                       # On la remplit
         if chaine_SansCaraSpe[i + 1] == " " and chaine_SansCaraSpe[i] == " ":
             chaine_SansCaraSpe2 += ""
         else:
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
-    return chaine_SansCaraSpe2.split(" ")
+    return chaine_SansCaraSpe2.split(" ")                                              # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
 
 
 def regr(l, sep=""):
     """
-    Regroupe une liste en une chaine de caractères séparé par un caractères donné
+
+    :param : List: une liste contenant des chaines de caractères
+           : STR: Une chaîne de caractère qui ne contiendra un caractère qui fera office de séparateur
+    :return: STR: une chaîne de caractères qui contiendra tout les mots de la liste avec entre chacun un caractère donné
+
+    :descirption: Change une liste de mot en une chaine de caractères
     """
     s = ""
     for val in l:
