@@ -2,6 +2,9 @@ from TFIDF import *
 from FonctionDeBases import *
 
 def NonImportant6():
+    """
+    Affiche les mots que tout le monde a évoqué en excluant manuellemant les mots réelment non importants tels que les pronoms personnels, les conjonctions etc...
+    """
     dico_key = list(idf().keys())
     matrice = tfidf()
     list_mots_non_important = []
