@@ -18,7 +18,7 @@ def who_said(directory="./cleaned/", word="Nation"):
     id = 0
     for file in list_of_files(directory, ".txt"):
         name = get_names(0, file)
-        with open(directory + file, "r") as f:
+        with open(directory + "/" + file, "r") as f:
             dico = tf(f.read())
             for val in dico:
                 if val == word:
