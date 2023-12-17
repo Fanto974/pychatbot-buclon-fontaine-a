@@ -2,6 +2,9 @@ from TFIDF import *
 from RechercheFichier import *
 
 def highest_tfidf(directory="./cleaned/"):
+    """
+    Renvoie le mot avec le TF-IDF le plus élevé
+    """
     tf_idf = tfidf(directory)
     dico_key = list(idf().keys())
     liste_documents = list_of_files(directory, ".txt")
