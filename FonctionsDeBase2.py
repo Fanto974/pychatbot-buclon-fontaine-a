@@ -128,6 +128,9 @@ def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False)
 
 
 def norme(vector):
+    """
+    Renvoie la norme d'un vecteur en faisant la somme des crrés de ses valeurs et renvoie la racine carré du tout
+    """
     sum = 0
     for val in vector:
         sum += val
@@ -135,6 +138,9 @@ def norme(vector):
 
 
 def scalaire(Va, Vb):
+    """
+    Renvoie le produit scalaire de 2 vecteurs de même taille
+    """
     sum = 0
     if len(Va) == len(Vb):
         for i in range(len(Va)):
@@ -145,6 +151,11 @@ def scalaire(Va, Vb):
 
 
 def similar(matrice_question, matrice, directory="./cleaned"):
+    """
+    Renvoie une liste de la similarité d'un vecteur avec une liste d'autres vecteurs
+    Exemple:
+        La similarité de la question avec les différents documents
+    """
     list_norme = [[0] for i in range(len(compose_matrice(tfidf(directory))))]
     norme_q = norme(matrice_question)
     if norme_q == 0:
@@ -162,6 +173,9 @@ def similar(matrice_question, matrice, directory="./cleaned"):
 # print(similar(TFIDF_Qestion("les doit est bien")))
 
 def doc_pertinent(matrice_question, directory="./cleaned"):
+    """
+    Renvoie le documents ayant la plus grande similarité avec la question de l'utilisateur
+    """
     list_nomFichier = list_of_files(directory, "txt")
     matrice = compose_matrice(tfidf(directory))
     liste_similarite = similar(matrice_question, matrice, directory)
@@ -179,6 +193,9 @@ def doc_pertinent(matrice_question, directory="./cleaned"):
 
 
 def most_impo_q(text, directory="./cleaned"):
+    """
+    Renvoie le mot avec le TF-IDF de le plus élevé dans une chaine de carctères.
+    """
     max = 0
     id = 0
     question_tfidf = TFIDF_Qestion(text, directory)
@@ -190,6 +207,10 @@ def most_impo_q(text, directory="./cleaned"):
 
 
 def l_most_impo_q(text, directory="./cleaned"):
+    """
+    Renvoie une liste
+    Classe les mots de plus au moins imporants en fonction de leur TF-IDF 
+    """
     question_tfidf = TFIDF_Qestion(text, directory)
     l_tfidf = list(idf().keys())
     list_question_tfidf = []
@@ -209,6 +230,13 @@ def l_most_impo_q(text, directory="./cleaned"):
 
 
 def tri_selec(l, m):
+    """
+    renvoie une liste trié en fonction d'une liste d'indice
+
+    Par exemple 
+    print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"]))
+    renverra donc les valeurs en chiffres romains trié car la première liste leur fais correspondre à chacun une valeur numérique
+    """
     final_l = []
     for i in range(len(l)):
         id_min = i
@@ -226,6 +254,10 @@ def tri_selec(l, m):
 # print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"]))
 
 def respond(text, directory="./speech/", directory_clean = "./cleaned"):
+    """
+    Renvoie une phrase
+    Renvoie la 1ere phrase contenant le mot avec le plus grand TFIDF de la question dans le document le plus similaire à la question
+    """
     l_txt = tokenisation(text)
     text = ""
     for val in l_txt:
@@ -253,7 +285,10 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
 # print(respond("Comment est ce que les gens doivent decider de servir la france ?"))
 
 def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
-
+    """
+    Renvoie une phrase 
+    Choisi la phrase la plus similaire à la question en réutilisant la fonction similar créer plus tôt
+    """
     # ________Lecture du fichier phrase par phrase________
     doc_pert = doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)
     if doc_pert == -1:
@@ -294,6 +329,9 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
 #print(time.process_time() - a)
 
 def politesse(mode = "recup"):
+    """
+    Perlet d'ajouter et d'afficher les formules de politesses au début dechaque réponses en fonction du premier mot de l'utilisateur
+    """
     if mode == "recup":
         d = {}
         with open("./Fichier_Informations/Politesse.txt", "r") as poli:
@@ -336,6 +374,9 @@ def politesse(mode = "recup"):
 #print(politesse())
 
 def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
+    """
+    Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
+    """
     poli = politesse()
     rep = respond_better(text, directory, directory_clean)
     if rep == -1:
