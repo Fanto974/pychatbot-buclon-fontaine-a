@@ -105,7 +105,7 @@ def chat_bot():
         print("\n\n0 - Quitter le chat bot\nSinon énoncez votre question")
         while question != "0":
             question = input("Vous : ")
-            if "quelle note merite" in regr(tokenisation(question)," "):
+            if "note" in regr(tokenisation(question)," ") and "merite"in regr(tokenisation(question)," "):
                 print("\nChatBot : ", end= " ")
                 print("Ils mériteraient la note de 20/20 sans aucun doute\n")
             elif question != "0":
