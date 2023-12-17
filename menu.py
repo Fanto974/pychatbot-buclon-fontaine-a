@@ -10,6 +10,9 @@ global chatBot_directory
 chatBot_directory = "./Dossiers_Thematiques/speech/"
 
 def menu():
+    """
+    Permet à l'utilisateur de choisir les fonctions qu'ils veulent tester ou bien lui donne accès au chatbot
+    """
     directory = chatBot_directory
     for file in list_of_files("./cleaned_chatBot", ".txt"):
         os.remove("./cleaned_chatBot/" + str(file))
@@ -85,6 +88,9 @@ def menu():
             input("Pressez entrée")
 
 def chat_bot():
+    """
+    Permet à l'utilisateur de communiquer avec les differntes versions de chatbot et d'en modifier les directory de références
+    """
     global chatBot_directory
     line = "______________________________________________________________________________________________"
     directory_clean = "./cleaned_chatBot"
