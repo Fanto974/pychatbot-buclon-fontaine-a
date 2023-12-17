@@ -1,5 +1,8 @@
 from RechercheFichier import *
 def tf(text):
+    """
+    Renvoie un disctionnaire du nombre de chaque mot dans une chaine de caractères fournies
+    """
     words = text.split(" ")        #On transforme la chaine de caractères en liste séparé par les espaces
     tf_dico = {}                   #On initialise le dico
     for word in words:             #Pour chaque mot dans la liste des mots:
@@ -10,6 +13,9 @@ def tf(text):
     return tf_dico
 
 def idf(directory="./cleaned"):
+    """
+    Renvoie l'idf de chaque mot du corpus de texte sous forme d'une liste
+    """
     liste_des_mots = {}                                 
     number_of_files = 0
     for file in list_of_files(directory, ".txt"):       #Pour chaque fichier dans le repertoire donné:
@@ -36,6 +42,9 @@ def idf(directory="./cleaned"):
     return liste_des_mots
     
 def tfidf(directory="./cleaned"):
+    """
+    On renvoie la matrice TF-IDF du corpus de texte sous forme d'une matrice 2D
+    """
     liste_des_mots = idf(directory) #La liste des mots prends l'idf du repertoire
     matrice_tf_idf = []
     id = 0
@@ -58,6 +67,9 @@ def tfidf(directory="./cleaned"):
 
 
 def write_tf_idf():
+    """
+    Créer un fichier texte dans lequel on écrit l'intégralité de la matrice TF-IDF pour pouvoir la lire plus facilement
+    """
     with open("TF-IDF_matrice.txt", "w") as f:
         id = 0
         dico_key = list(idf().keys())
