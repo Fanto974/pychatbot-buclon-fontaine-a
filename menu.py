@@ -5,7 +5,10 @@ from Fonctionalités_Partie1.Fonctionalite5 import *
 from Fonctionalités_Partie1.Fonctionalite6 import *
 from FonctionsDeBase2 import *
 from os import *
-
+"""
+Document permettant d'accéder aux différentes fonctions du programme tels que le chatbot et 
+Les fonctinnalitées de la partie 1
+"""
 global chatBot_directory
 chatBot_directory = "./Dossiers_Thematiques/speech/"
 
