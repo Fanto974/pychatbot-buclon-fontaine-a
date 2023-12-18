@@ -92,3 +92,66 @@
      
 # Fonction Partie 2
 1. ### **Dans fonction de base 2**
+    - _tokenisation :_
+        - Appellation : tokenisation(text)
+        - Description : Minimize le texte passé en paramètre et enlève de celui-ci tout les caractères spéciaux
+        - Paramètre : STR: une chaîne de caractères contenant une phrase
+        - Retourne : list: une liste contenant chaque mot du texte sans accent, ni majuscules, ni ponctuation
+          
+    - _regr :_
+        - Appellation : regr(l, sep)
+        - Description : Change une liste de mot en une chaine de caractères
+        - Paramètre : List: une liste contenant des chaines de caractères
+                    : STR: Une chaîne de caractère qui ne contiendra un caractère qui fera office de séparateur
+        - Retourne : STR: une chaîne de caractères qui contiendra tout les mots de la liste avec entre chacun un caractère donné
+          
+    - _intersection :_
+        - Appellation : intersection(text, directory)
+        - Description : Analyse tous les mots de la question et ne retient que ceux qui sont également présent dans le corpus de document du dossier passé en paramère
+        - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
+                    : STR: Un chemin d'accès vers le répértoire dont on veut analyser l'intersection
+        - Retourne : List: Une liste des mots présent et dans la question et dans le corpus de documents
+     
+    - _compose_matrice :_
+        - Appellation : compose_matrice(matrice)
+        - Description : Permet d'inverser la matrice d'un corpus de document
+        - Paramètre : List: une liste de liste qui contient la matrice des mots du corpus
+        - Retourne : List: La meme liste de liste mais inversée
+     
+    - _TFIDF_Qestion :_
+        - Appellation : TFIDF_Qestion(text, directory, idf_given=False, key_given=False)
+        - Description : Calcule pour caque mot de la question son TFIDF
+        - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
+                    : STR: Un chemin d'accès vers le répértoire nétoyé des fichiers du corpus de doc souhaité
+                    :    : ????????????????????????????????
+                    :    : ?????????????????????????????
+        - Retourne : List: une liste de tout les TFIDF des mots de la question
+     
+    - _doc_pertinent :_
+        - Appellation : doc_pertinent(matrice_question, directory)
+        - Description : Analyse le corpus de documents et donne le documents ayant la plus grande similarité avec la question de l'utilisateur
+        - Paramètre : List: une liste de liste qui contient la matrice de la question
+                    : STR: Un chemin d'accès vers le répértoire dont on veut analyser le document le plus pertinant
+        - Retourne : STR: Le deuxième caractère d'une liste qui est une chaîne de caractèreset qui contient le nom du fichier le plus pertinant
+     
+    - _most_impo_q :_
+        - Appellation : most_impo_q(text, directory)
+        - Description : Analyse la question et donne le mot le plus important
+        - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
+                    : STR: Un chemin d'accès vers le répértoire ou la question est posée
+        - Retourne : STR: Le nième caractère d'une liste qui contiendra le mot ayant le tfidf le plus élevé d'une question
+     
+    - _l_most_impo_q :_
+        - Appellation : l_most_impo_q(text, directory)
+        - Description : Classe les mots de la question du plus important au moins imporants
+        - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
+                    : STR: Un chemin d'accès vers le répértoire ou la question est posée
+        - Retourne : List: une liste triée des mots de la question avec comme paramètre de tri leur TFIDF 
+
+    - _reponse_finale :_
+        - Appellation : reponse_finale(text, directory, directory_clean)
+        - Description : Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
+        - Paramètre : STR: Une chaîne de caractères qui contiendra le texte de la question
+                    : STR: Un chemin d'accès vers le répertoire non cleaned ou la question est posée
+                    : STR: Un chemin d'accès vers le répertoire cleaned dans lequel la question est posée
+        - Retourne : Tuple: Le premier élément contiendra la réponse et le 2e un booléen qui indiquera si oui ou non il faut demander a l'utilisateur la question de politesse
