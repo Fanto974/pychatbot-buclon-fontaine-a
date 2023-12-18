@@ -346,7 +346,10 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
 
 def politesse(mode = "recup"):
     """
-    Perlet d'ajouter et d'afficher les formules de politesses au début dechaque réponses en fonction du premier mot de l'utilisateur
+    :param : STR: Le mode dans lequel on veut appeler la question
+    :return : Dictionnaire: De toutes les formules de politesses contenue dans le fichier Politess.txt => Si le paramètre est "recup"
+            : Rien: juste des prints => Si le mode est "ajout"
+    :description : Permet d'ajouter et d'afficher les formules de politesses au début dechaque réponses en fonction du premier mot de l'utilisateur
     """
     if mode == "recup":
         d = {}
