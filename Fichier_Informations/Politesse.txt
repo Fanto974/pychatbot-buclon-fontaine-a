@@ -4,3 +4,4 @@ peux-tu : Oui bien sur !
 es-ce-que : Car,
 salut : Bonjour
 allo : Oui
+bonjour : Salutations
