@@ -53,8 +53,9 @@ def tokenisation(text):
             chaine_SansCaraSpe2 += ""
         else:
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
-    return split_new(chaine_SansCaraSpe2,[" "])                                       # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
-
+    if len(split_new(chaine_SansCaraSpe2,[" "])) == 0:
+        return [""]
+    return split_new(chaine_SansCaraSpe2,[" "])  
     #return split_new(chaine_SansCaraSpe2,[" "])                                              # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
 
 
