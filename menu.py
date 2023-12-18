@@ -111,7 +111,7 @@ def chat_bot():
         while question != "0":
             question = input("Vous : ")
             if question != "0":
-                print("\nChatBot : ", respond(question, chatBot_directory), "\n")
+                print("\nChatBot : ", respond(question, chatBot_directory, directory_clean), "\n")
     elif choix == "2":
         question = ""
         print("\n\n0 - Quitter le chat bot\nSinon énoncez votre question")
