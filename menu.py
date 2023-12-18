@@ -136,15 +136,18 @@ def chat_bot():
         print("Entrez 0 pour ne pas le modifier")
         val = input("Dans quel directory voulez-vous utiliser le chat bot : ")
         if val != "0":
-            directory = "./Dossiers_Thematiques/" + val + "/"
-            
-            for file in list_of_files("./cleaned_chatBot", ".txt"):
-                os.remove("./cleaned_chatBot/" + str(file))
-            lower_files(directory, "./cleaned_chatBot/cleaned_")
-            suppr_SpeCara("./cleaned_chatBot/")
-            print("Corpus changé avec succés ! ")
-            print(directory)
-            chatBot_directory = directory
+            if val not in list_of_files("./Dossiers_Thematiques", ""):
+                print("Veuillez entrez un directory existant")
+            else:
+                directory = "./Dossiers_Thematiques/" + val + "/"
+                
+                for file in list_of_files("./cleaned_chatBot", ".txt"):
+                    os.remove("./cleaned_chatBot/" + str(file))
+                lower_files(directory, "./cleaned_chatBot/cleaned_")
+                suppr_SpeCara("./cleaned_chatBot/")
+                print("Corpus changé avec succés ! ")
+                print(directory)
+                chatBot_directory = directory
     elif choix == "0":
         pass
     else:
