@@ -1,3 +1,6 @@
+"""
+    Ce fichier est essentiel puisqu'il permet a l'utilisateur d'utiliser toutes les fonctionnalités qui lui ont été atribuées ainsi que le Chat Bot
+"""
 from Fonctionalités_Partie1.Fonctionalite2 import *
 from Fonctionalités_Partie1.Fonctionalité3 import *
 from Fonctionalités_Partie1.Fonctionalite4 import *
