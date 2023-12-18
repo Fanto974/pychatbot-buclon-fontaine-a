@@ -146,7 +146,13 @@
         - Description : Classe les mots de la question du plus important au moins imporants
         - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
                     : STR: Un chemin d'accès vers le répértoire ou la question est posée
-        - Retourne : List: une liste triée des mots de la question avec comme paramètre de tri leur TFIDF 
+        - Retourne : List: une liste triée des mots de la question avec comme paramètre de tri leur TFIDF
+     
+    - _politesse :_
+        - Appellation : politesse(mode)
+        - Description : Permet d'ajouter et d'afficher les formules de politesses au début dechaque réponses en fonction du premier mot de l'utilisateur
+        - Paramètre : STR: Le mode dans lequel on veut appeler la question
+        - Retourne : STR: Le deuxième caractère d'une liste qui est une chaîne de caractèreset qui contient le nom du fichier le plus pertinant
 
     - _reponse_finale :_
         - Appellation : reponse_finale(text, directory, directory_clean)
@@ -154,4 +160,5 @@
         - Paramètre : STR: Une chaîne de caractères qui contiendra le texte de la question
                     : STR: Un chemin d'accès vers le répertoire non cleaned ou la question est posée
                     : STR: Un chemin d'accès vers le répertoire cleaned dans lequel la question est posée
-        - Retourne : Tuple: Le premier élément contiendra la réponse et le 2e un booléen qui indiquera si oui ou non il faut demander a l'utilisateur la question de politesse
+        - Retourne : Dictionnaire: De toutes les formules de politesses contenue dans le fichier Politess.txt => Si le paramètre est "recup"
+                   : Rien: juste des prints => Si le mode est "ajout"
