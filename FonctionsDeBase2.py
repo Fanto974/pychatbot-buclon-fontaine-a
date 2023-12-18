@@ -391,7 +391,11 @@ def politesse(mode = "recup"):
 
 def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
     """
-    Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
+    :param : STR: Une chaîne de caractères qui contiendra le texte de la question
+           : STR: Un chemin d'accès vers le répertoire non cleaned ou la question est posée
+           : STR: Un chemin d'accès vers le répertoire cleaned dans lequel la question est posée
+    :return : Tuple: Le premier élément contiendra la réponse et le 2e un booléen qui indiquera si oui ou non il faut demander a l'utilisateur la question de politesse
+    :description : Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
     """
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
     rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
