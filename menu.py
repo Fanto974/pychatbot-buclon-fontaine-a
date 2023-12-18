@@ -35,7 +35,7 @@ def menu():
         choice = input("Votre choix : ")
         if choice == "0":
             pass
-        elif tokenisation(choice)[0] == "bot":
+        elif len(tokenisation(choice)) != 0 and tokenisation(choice)[0] == "bot":
             chat_bot()
         elif choice == "1":
             print("\nLes mots avec un TF-IDF de 0 sont:")
