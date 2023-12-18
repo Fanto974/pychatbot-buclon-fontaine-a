@@ -1,3 +1,7 @@
+"""
+    Ce fichier contient toutes les fonctions nécessaires aux fonctionalités de bases proposées a l'utilisateur.
+    Il précède le fichier FonctionDeBases2 qui se sérvira de lui et contiendra surtout les fonction nécessaires a Chat Bot
+"""
 from RechercheFichier import *
 
 
