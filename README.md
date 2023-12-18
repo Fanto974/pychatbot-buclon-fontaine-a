@@ -205,3 +205,9 @@
                     : STR: Un chemin d'accès vers le répertoire cleaned dans lequel la question est posée
         - Retourne : Dictionnaire: De toutes les formules de politesses contenue dans le fichier Politess.txt => Si le paramètre est "recup"
                    : Rien: juste des prints => Si le mode est "ajout"
+     - slit_new :_
+        - Appellation : split_new(text,l)
+        - Description : Split une chaine de caractères a la maniere du .split()
+        - Paramètre : STR: Une chaîne de caractères à split
+                    : list: une liste comprenant les valeurs servant d'indice pour savoir où split
+        - Retourne : list: La chaine de caractères split aux endroits demandé
