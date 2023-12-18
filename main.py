@@ -94,3 +94,66 @@ print(line)
 print("DANS LA PARTIE 2 :")
 print("             DANS LES FONCTION DE BASES :")
 print(line)
+
+print("La fonction Tokenisation :")
+print(tokenisation("BONJOUR, COmméNt sA Và ?"))
+print(line)
+
+print("La fonction Tokenisation :")
+print(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "))
+print(line)
+
+print("La fonction Intersection :")
+print(intersection(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " ")))
+print(line)
+
+print("La fonction compose :")
+print(compose_matrice([[1,2,3],[4,5,6]]))
+print(line)
+
+print("La fonction TF-IDF Question :")
+print(TFIDF_Qestion(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "), "./cleaned"))
+print(line)
+
+print("La fonction norme :")
+print(norme([1,2,3,4,5,6]))
+print(line)
+
+print("La fonction scalaire :")
+print(scalaire([1,2,3],[4,5,6]))
+print(line)
+
+print("La fonction similar :")
+print(similar(TFIDF_Qestion(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "), "./cleaned"), compose_matrice(tfidf("./cleaned"))))
+print(line)
+
+print("La fonction Document Pertinent :")
+print(doc_pertinent(TFIDF_Qestion(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "), "./cleaned")))
+print(line)
+
+print("La fonction Most Important Word:")
+print(most_impo_q(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "), "./cleaned"))
+print(line)
+
+print("La fonction List Most Important Word:")
+print(l_most_impo_q(regr(tokenisation("BONJOUR, COmméNt sA Và ?"), " "), "./cleaned"))
+print(line)
+
+print("La fonction tri par séléction :")
+print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"]))
+print(line)
+
+print("La fonction respond :")
+print(respond("Bonjour comment va la France dans la mondialisation ?", "./Dossiers_Thematiques/speech/", "./cleaned"))
+print(line)
+
+print("La fonction respond better:")
+print(respond_better("Bonjour comment va la France dans la mondialisation ?", "./Dossiers_Thematiques/speech/", "./cleaned"))
+print(line)
+
+print("La fonction Politesse")
+print("cette fonction écrit dans un fichier et à plusieurs modes d'appel, pour la tester comme vous le désirez nous vous invitons à lire le code et sa documentation.")
+print(line)
+
+print("La fonction Réponse finale")
+print(reponse_finale("Bonjour comment va la France dans la mondialisation ?","./Dossiers_Thematiques/speech/","./cleaned")[0])
