@@ -7,7 +7,6 @@ from FonctionDeBases import *
 from TFIDF import *
 from math import *
 import time
-import re
 
 a = time.process_time()
 
@@ -54,7 +53,7 @@ def tokenisation(text):
             chaine_SansCaraSpe2 += ""
         else:
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
-    return chaine_SansCaraSpe2.split(" ")                                              # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
+    return split_new(chaine_SansCaraSpe2,[" "])                                       # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
 
 
 def regr(l, sep=""):
@@ -302,7 +301,7 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
         file = f.readlines()
         for word_impo in list_word_impo:
             for line in file:
-                for word in line.split(" "):
+                for word in split_new(line,[" "]):
                     sentence += word + " "
                     if word_impo in tokenisation(word):
                         found = True
@@ -332,7 +331,7 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
         return -1
     with open(directory + doc_pert[8:], "r", encoding="utf-8") as f:  # On ouvre le fichier normal (en enlevant le cleaned_) en lecture en utf8
         file = f.read()  # On lit le fichier
-        l_file = re.split(r"[.!?]\s*",file)  # On sépare le fichier en unne liste de phrase possible contenant un des mots de la question
+        l_file = split_new(file, [".","!","?"])# On sépare le fichier en unne liste de phrase possible contenant un des mots de la question         
         f.close()
 
     # ________Calcul à l'avance________
@@ -425,12 +424,32 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
     if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
         return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
-    mot = minimize_text(text.split(" ")[0])                                                                       # On minimize le texte de la question et on test plusieur cas
+    mot = minimize_text(split_new(text,[" "])[0])                                                                 # On minimize le texte de la question et on test plusieur cas
     if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
         mot = tokenisation(mot)[0]
     if mot in poli.keys():
-        return (poli[mot] + " " + minimize_text(rep) + "."), True
+        return (poli[mot] + " " + minimize_text(rep).strip() + "."), True
     else:
         return (rep), False                                                                                       # Les true et false permettent de savoir si le Chat Bot doit demander a l'utilisateur a la fin  de la réponse si il aurait souhaiter une formule de politesse
 #print(reponse_finale("Peux-tu une nation peut-elle prendre soin du climat ?"))
 
+def split_new(text,l):
+    """
+    text : chaine à split
+    l : liste d'indice à regarder pour le split
+
+    description : Split une chaine de caractères comme la fonction split mais peut prendre plusieurs arguments permettant de split en fonctions de différentes valeurs
+    """
+    phrase = ""
+    l_phrase = []
+    for val in text:
+        if val not in l:
+            phrase+=val
+        else:
+            l_phrase.append(phrase)
+            phrase = ""
+    if phrase!="":
+        l_phrase.append(phrase)
+    return l_phrase
+text = "Quelle est l'attente international des gouvernements envers la mondialisation ?"
+#print(respond(text, "./Dossiers_Thematiques/speech/", "./cleaned"))
