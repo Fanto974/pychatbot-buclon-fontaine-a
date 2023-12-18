@@ -1,3 +1,6 @@
+"""
+    Ce fichier est essentiel au fonctionnement de tout le programme, c'est lui qui s'occupe de calculer le TFIDF de tout ce dont on a besoin
+"""
 from RechercheFichier import *
 def tf(text):
     """
