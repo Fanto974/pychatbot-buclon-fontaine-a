@@ -79,7 +79,7 @@ def associe(list_noms):
 
     :descirption: Permet pour chaque nom de président de lui donner un prénom
     """
-    with open("Nom_Prenom.txt","r") as np:  # Ouvre le fichier contenant la liste de tout les présidents francais ayant existés
+    with open("./Fichier_Informations/Nom_Prenom.txt","r") as np:  # Ouvre le fichier contenant la liste de tout les présidents francais ayant existés
         list_NomsPrenoms = []  # Crée une liste qui associra le nom et les prénoms
         list_NomPrenom = np.readlines()
         for i in range(len(list_NomPrenom)):  # Parcours les prénoms de tous les présidents du fichier
@@ -90,14 +90,14 @@ def associe(list_noms):
         return list_NomsPrenoms
 
 
-def print_unique(directory, extension):
+def print_unique(directory):
     """
 
     :param: Dossiers contenant les fichier
 
     :description: On affiche les noms des présidents en évitants les doublons.
     """
-    print(get_names())  # Les doublons sont déjà gérer par les sets dans get_names
+    print(get_names(directory))  # Les doublons sont déjà gérer par les sets dans get_names
 
 
 def minimize_text(text):
