@@ -117,15 +117,35 @@
         - Description : Permet d'inverser la matrice d'un corpus de document
         - Paramètre : List: une liste de liste qui contient la matrice des mots du corpus
         - Retourne : List: La meme liste de liste mais inversée
-     
+
     - _TFIDF_Qestion :_
         - Appellation : TFIDF_Qestion(text, directory, idf_given=False, key_given=False)
         - Description : Calcule pour caque mot de la question son TFIDF
         - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
                     : STR: Un chemin d'accès vers le répértoire nétoyé des fichiers du corpus de doc souhaité
-                    :    : ????????????????????????????????
-                    :    : ?????????????????????????????
+                    : Bool: Permet de fournir à l'avance la matrice idf d'un corpus pour réduire la quantité de calcul
+                    : Bool: Permet de fournir à l'avance les clés de cette matrice pour réduire la quantité de calcul
         - Retourne : List: une liste de tout les TFIDF des mots de la question
+     
+    - _norme :_
+        - Appellation : norme(vector)
+        - Description : Renvoie la norme d'un vecteur en faisant la somme des crrés de ses valeurs et renvoie la racine carré du tout
+        - Paramètre : list: Un vecteur 
+        - Retourne : int: La norme de ce vecteur
+     
+    - _scalaire :_
+        - Appellation : scalaire(Va, Vb)
+        - Description : Renvoie le produit scalaire de 2 vecteurs de même taille
+        - Paramètre : list: Un premier vecteur
+                    : list: Un deuxieme vecteur de meme taille
+        - Retourne : int: La produit scalaire de ces 2 vecteurs
+     
+    - _similar :_
+        - Appellation : similar(matrice_question, matrice, directory)
+        - Description : Renvoie une liste de la similarité d'un vecteur avec une liste d'autres vecteurs / Exemple: La similarité de la question avec les différents documents
+        - Paramètre : list: Un 1 er vecteur (La matrice TF-IDF de la question)
+                    : list: Une liste de vecteur (La matrice TF-IDF du corpus de texte)
+        - Retourne : list: Une liste des similarités entre le 1 er vecteur et chaque vecteur dans la liste de vecteurs
      
     - _doc_pertinent :_
         - Appellation : doc_pertinent(matrice_question, directory)
@@ -147,6 +167,29 @@
         - Paramètre : STR: une chaîne de caractères qui contiendra le texte de la question
                     : STR: Un chemin d'accès vers le répértoire ou la question est posée
         - Retourne : List: une liste triée des mots de la question avec comme paramètre de tri leur TFIDF
+     
+    - _tri_selec :_
+        - Appellation : tri_selec(l, m)
+        - Description : renvoie une liste trié en fonction d'une liste d'indice / Par exemple : print(tri_selec([2,4,4,2,3,6,8,9,10,0,2,1],["II","IV","IV","II","III","VI","VIII","IX","X","zéro","II","I"])) -> renverra donc les valeurs en chiffres romains trié car la première liste leur fais correspondre à chacun une valeur numérique
+        - Paramètre : list: Une list  avec des valeurs qui peuvent être trié par les opérateurs < et >
+                    : list: Une liste de meme taile que la premiere que l'on désire trier en fonction de la 1ere
+        - Retourne : List: La 2 eme liste trié en fonction de la 2eme
+     
+    - _respond :_
+        - Appellation : respond(text, directory, directory_clean)
+        - Description : Renvoie la 1ere phrase contenant le mot avec le plus grand TFIDF de la question dans le document le plus similaire à la question
+        - Paramètre : STR: La question de l'utilisateur
+                    : STR: le directory dans lequel on doit chercher les documents avant leur modifications
+                    : STR: le directory dans lequel on trouve les documents modifié sans majuscule et caractères spéciaux
+        - Retourne : STR: La réponse généré par l'algorithme
+     
+    - _respond_better :_
+        - Appellation : respond_better(text, directory, directory_clean)
+        - Description : Choisi la phrase la plus similaire à la question en réutilisant la fonction similar créer plus tôt
+        - Paramètre : STR: La question de l'utilisateur
+                    : STR: le directory dans lequel on doit chercher les documents avant leur modifications
+                    : STR: le directory dans lequel on trouve les documents modifié sans majuscule et caractères spéciaux
+        - Retourne : STR: La réponse généré par l'algorithme
      
     - _politesse :_
         - Appellation : politesse(mode)
