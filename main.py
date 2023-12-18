@@ -1,3 +1,6 @@
+"""
+    Ce fichier permet les tests de toutes les focntions présentes dans ce projet
+"""
 from FonctionDeBases import *
 from FonctionsDeBase2 import *
 from Fonctionalités_Partie1.Fonctionalite1 import *
