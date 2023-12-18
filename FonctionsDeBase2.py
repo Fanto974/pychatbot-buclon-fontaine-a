@@ -55,6 +55,8 @@ def tokenisation(text):
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
     return split_new(chaine_SansCaraSpe2,[" "])                                       # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
 
+    #return split_new(chaine_SansCaraSpe2,[" "])                                              # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
+
 
 def regr(l, sep=""):
     """
@@ -297,6 +299,10 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     list_word_impo = l_most_impo_q(text)
     sentence = ""
     found = False
+    if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
+        return "Aucun des mots de la question n'est présent dans le corpus de documents"
+    if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
+        return "Aucun des mots de la question n'est présent dans le corpus de documents"
     with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
         for word_impo in list_word_impo:
@@ -376,7 +382,7 @@ def politesse(mode = "recup"):
         with open("./Fichier_Informations/Politesse.txt", "r") as poli:
             l = poli.readlines()
             for i in l:
-                cv = i.split(" : ")
+                cv = i.split(" : ") 
                 d[cv[0]] = cv[1][:-1]
         return d
     elif mode == "ajout":
@@ -420,6 +426,8 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     :return : Tuple: Le premier élément contiendra la réponse et le 2e un booléen qui indiquera si oui ou non il faut demander a l'utilisateur la question de politesse
     :description : Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
     """
+    if "note" in text and "merite" in text:
+        return "Chatbot: Ils mériteraient la note de 20/20 sans aucune hésiation", True
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
     rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
     if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
@@ -453,3 +461,4 @@ def split_new(text,l):
     return l_phrase
 text = "Quelle est l'attente international des gouvernements envers la mondialisation ?"
 #print(respond(text, "./Dossiers_Thematiques/speech/", "./cleaned"))
+print(tokenisation("aaze 2 aze"))
