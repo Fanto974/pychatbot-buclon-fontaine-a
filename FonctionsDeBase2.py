@@ -1,3 +1,8 @@
+"""
+    Ce fichier contient toutes les fonction principales et nécéssaires a la réponse du Chat Bot.
+    Il fait suite au fichier "FonctionDeBases" qui contient lui aussi des fonction nécéssaires au Chat Bot mais des fonction plus basique mais surtout des fonction nécéssaires aux autres fonctionnalités proposées à l'utilisateur
+"""
+
 from FonctionDeBases import *
 from TFIDF import *
 from math import *
@@ -174,7 +179,11 @@ def similar(matrice_question, matrice, directory="./cleaned"):
 
 def doc_pertinent(matrice_question, directory="./cleaned"):
     """
-    Renvoie le documents ayant la plus grande similarité avec la question de l'utilisateur
+    :param : List: une liste de liste qui contient la matrice de la question
+           : STR: Un chemin d'accès vers le répértoire dont on veut analyser le document le plus pertinant
+    :return: STR: Le deuxième caractère d'une liste qui est une chaîne de caractèreset qui contient le nom du fichier le plus pertinant
+
+    :descirption: Analyse le corpus de documents et donne le documents ayant la plus grande similarité avec la question de l'utilisateur
     """
     list_nomFichier = list_of_files(directory, "txt")
     matrice = compose_matrice(tfidf(directory))
@@ -194,7 +203,11 @@ def doc_pertinent(matrice_question, directory="./cleaned"):
 
 def most_impo_q(text, directory="./cleaned"):
     """
-    Renvoie le mot avec le TF-IDF de le plus élevé dans une chaine de carctères.
+    :param : STR: une chaîne de caractères qui contiendra le texte de la question
+           : STR: Un chemin d'accès vers le répértoire ou la question est posée
+    :return: STR: Le nième caractère d'une liste qui contiendra le mot ayant le tfidf le plus élevé d'une question
+
+    :descirption: Analyse la question et donne le mot le plus important
     """
     max = 0
     id = 0
@@ -208,8 +221,11 @@ def most_impo_q(text, directory="./cleaned"):
 
 def l_most_impo_q(text, directory="./cleaned"):
     """
-    Renvoie une liste
-    Classe les mots de plus au moins imporants en fonction de leur TF-IDF 
+    :param : STR: une chaîne de caractères qui contiendra le texte de la question
+           : STR: Un chemin d'accès vers le répértoire ou la question est posée
+    :return: List: une liste triée des mots de la question avec comme paramètre de tri leur TFIDF 
+
+    :descirption: Classe les mots de la question du plus important au moins imporants
     """
     question_tfidf = TFIDF_Qestion(text, directory)
     l_tfidf = list(idf().keys())
@@ -377,16 +393,16 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     """
     Utilise les formules de politesse et la fonction respond_better pour afficher la réponse à l'utilisateur
     """
-    poli = politesse()
-    rep = respond_better(text, directory, directory_clean)
-    if rep == -1:
+    poli = politesse()                                                                                            # On range les formule de politesse dans une variable
+    rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
+    if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
         return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
-    mot = minimize_text(text.split(" ")[0])
-    if len(tokenisation(mot)) == 1:
+    mot = minimize_text(text.split(" ")[0])                                                                       # On minimize le texte de la question et on test plusieur cas
+    if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
         mot = tokenisation(mot)[0]
     if mot in poli.keys():
         return (poli[mot] + " " + minimize_text(rep) + "."), True
     else:
-        return (rep), False
+        return (rep), False                                                                                       # Les true et false permettent de savoir si le Chat Bot doit demander a l'utilisateur a la fin  de la réponse si il aurait souhaiter une formule de politesse
 #print(reponse_finale("Peux-tu une nation peut-elle prendre soin du climat ?"))
 
