@@ -106,8 +106,8 @@ def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False)
     """
     :param : STR: une chaîne de caractères qui contiendra le texte de la question
            : STR: Un chemin d'accès vers le répértoire nétoyé des fichiers du corpus de doc souhaité
-           :    : ????????????????????????????????
-           :    : ?????????????????????????????
+           :Bool: Permet de fournir à l'avance la matrice idf d'un corpus pour réduire la quantité de calcul
+           :Bool: Permet de fournir à l'avance les clés de cette matrice pour réduire la quantité de calcul
     :return: List: une liste de tout les TFIDF des mots de la question
 
     :descirption: Calcule pour caque mot de la question son TFIDF
@@ -134,6 +134,9 @@ def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False)
 
 def norme(vector):
     """
+    :param: list: Un vecteur 
+    :return: int: La norme de ce vecteur
+    
     Renvoie la norme d'un vecteur en faisant la somme des crrés de ses valeurs et renvoie la racine carré du tout
     """
     sum = 0
@@ -144,6 +147,9 @@ def norme(vector):
 
 def scalaire(Va, Vb):
     """
+    :param: list: Un premier vecteur
+            list: Un deuxieme vecteur de meme taille
+    :return: int: La produit scalaire de ces 2 vecteurs
     Renvoie le produit scalaire de 2 vecteurs de même taille
     """
     sum = 0
@@ -157,6 +163,9 @@ def scalaire(Va, Vb):
 
 def similar(matrice_question, matrice, directory="./cleaned"):
     """
+    :param: list: Un 1 er vecteur (La matrice TF-IDF de la question)
+            list: Une liste de vecteur (La matrice TF-IDF du corpus de texte)
+    :return:list: Une liste des similarités entre le 1 er vecteur et chaque vecteur dans la liste de vecteur
     Renvoie une liste de la similarité d'un vecteur avec une liste d'autres vecteurs
     Exemple:
         La similarité de la question avec les différents documents
@@ -247,6 +256,10 @@ def l_most_impo_q(text, directory="./cleaned"):
 
 def tri_selec(l, m):
     """
+    :param: list: Une list  avec des valeurs qui peuvent être trié par les opérateurs < et >
+            list: Une liste de meme taile que la premiere que l'on désire trier en fonction de la 1ere
+    :return:list: La 2 eme liste trié en fonction de la 2eme
+    
     renvoie une liste trié en fonction d'une liste d'indice
 
     Par exemple 
@@ -271,6 +284,10 @@ def tri_selec(l, m):
 
 def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     """
+    :param: str: La question de l'utilisateur
+            str: le directory dans lequel on doit chercher les documents avant leur modifications
+            str: le directory dans lequel on trouve les documents modifié sans majuscule et caractères spéciaux
+    :return:str: La réponse généré par l'algorithme
     Renvoie une phrase
     Renvoie la 1ere phrase contenant le mot avec le plus grand TFIDF de la question dans le document le plus similaire à la question
     """
@@ -302,6 +319,10 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
 
 def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
     """
+    :param: str: La question de l'utilisateur
+            str: le directory dans lequel on doit chercher les documents avant leur modifications
+            str: le directory dans lequel on trouve les documents modifié sans majuscule et caractères spéciaux
+    :return:str: La réponse généré par l'algorithme
     Renvoie une phrase 
     Choisi la phrase la plus similaire à la question en réutilisant la fonction similar créer plus tôt
     """
