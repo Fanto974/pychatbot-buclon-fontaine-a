@@ -306,7 +306,7 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     list_word_impo = l_most_impo_q(text)
     sentence = ""
     found = False
-    if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
+    if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1 or text == " ":
         return "Je n'ai pas assez d'info pouvez vous etre splus précis"
     with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
@@ -437,7 +437,7 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
     rep = respond_better(text, directory, directory_clean, idf_given)                                                        # On crée la réponse a la question de l'utilisateur
     if rep == -1 or text == "":                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
-        return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
+        return ("Je n'ai pas assez d'information pouvez vous etre plus précis ?"), True
     mot = minimize_text(split_new(text,[" "])[0])                                                                 # On minimize le texte de la question et on test plusieur cas
     if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
         mot = tokenisation(mot)[0]
