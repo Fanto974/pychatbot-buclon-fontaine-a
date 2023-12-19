@@ -301,9 +301,9 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     sentence = ""
     found = False
     if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
-        return "Aucun des mots de la question n'est présent dans le corpus de documents"
+        return "Je n'ai pas assez de documents pour répondre a la question. Pouvez vous etres plus précis ?"
     if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
-        return "Aucun des mots de la question n'est présent dans le corpus de documents"
+        return "Je n'ai pas assez de documents pour répondre a la question. Pouvez vous etres plus précis ?"
     with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
         for word_impo in list_word_impo:
@@ -356,7 +356,7 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
 
     # ________Calcul du max de la similarité Question/Phrase________
     max = 0
-    max_line = "Le fichier ne contient aucune ligne correspondant à la question."
+    max_line = "Je n'ai pas assez de document pour répondre a la question. Pouvez vous etre plus précis ?"
     for line in l_check:  # Pour chaque ligne du
         sim = similar(TFIDF_Qestion(text, directory_clean, idf_to_give, key_to_give),
                       [TFIDF_Qestion(line, directory_clean, idf_to_give, key_to_give)])[0]
@@ -432,7 +432,7 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
     rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
     if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
-        return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
+        return ("Je n'ai pas assez de document et de ressources pour pouvoir répondre a cette question. Pouvez-vous etre plus précis ?"), True
     mot = minimize_text(split_new(text,[" "])[0])                                                                 # On minimize le texte de la question et on test plusieur cas
     if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
         mot = tokenisation(mot)[0]
