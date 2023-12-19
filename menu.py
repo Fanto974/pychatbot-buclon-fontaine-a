@@ -72,7 +72,7 @@ def menu():
                 print("le mot a été prononcer par aucun des présidents dans leurs discours")
         elif choice == "5":
             mot = minimize_text(input("\nQuel mot voulez-vous analyser : "))
-            if premier_mot(mot) != set([]):
+            if premier_mot(mot) != set([]) and premier_mot(mot) != -1:
                 if len(premier_mot(mot)) == 1:
                     print("Le premier président à parler de "+mot+" est : ", end ="")
                     for val in premier_mot(mot):
