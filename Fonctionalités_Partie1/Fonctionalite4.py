@@ -8,6 +8,8 @@ def who_said(directory="./cleaned/", word="Nation"):
     """
     word = minimize_text(word)             #Enleve les majuscules
     word = tokenisation(word)[0]
+    if tokenisation(word)[0] == "":
+        return -1
     tf_idf = tfidf(directory)               #La matrice Tf-IDF
     dico_key = list(idf().keys())           #La liste de tout les mots de TF-IDF
     liste_names = get_names(directory, 0, 0)      #Le nom de tout les présidents
