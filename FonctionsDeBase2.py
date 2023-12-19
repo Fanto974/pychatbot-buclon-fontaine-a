@@ -307,7 +307,7 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     sentence = ""
     found = False
     if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
-        return "Aucun des mots de la question n'est présent dans le corpus de documents"
+        return "Je n'ai pas assez d'info pouvez vous etre splus précis"
     with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
         for word_impo in list_word_impo:
@@ -361,7 +361,7 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
                 break  # On quitte la boucle de val car on peut passer à la phrase suivante, cela permet d'éviter les doublons de phrases
     # ________Calcul du max de la similarité Question/Phrase________
     max = 0
-    max_line = "Le fichier ne contient aucune ligne correspondant à la question."
+    max_line = "Je n'ai pas assez d'info pouvez vous etre splus précis"
     for line in l_check:  # Pour chaque ligne du fichier
         sim = similar(TFIDF_Qestion(text, directory_clean, idf_to_give, key_to_give),
                       [TFIDF_Qestion(line, directory_clean, idf_to_give, key_to_give)])[0]
