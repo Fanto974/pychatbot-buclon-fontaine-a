@@ -60,8 +60,10 @@ def menu():
         elif choice == "4":
             mot = input("\nQuel mot voulez-vous analyser : ")
             who_s = who_said("./cleaned/", mot)
-            if who_s[1] != []:
-                print("Le mot "+mot+" a été prononcé par :")
+            if who_s == -1:
+                print("le mot a été prononcer par aucun des présidents dans leurs discours")
+            elif who_s[1] != []:
+                print("Le mot "+regr(tokenisation(mot))+" a été prononcé par :")
                 for val in who_s[1]:
                     print(val, end=", ")
                 print("\n\nIl a été prononcé le plus par : ")
@@ -74,7 +76,7 @@ def menu():
             mot = minimize_text(input("\nQuel mot voulez-vous analyser : "))
             if premier_mot(mot) != set([]) and premier_mot(mot) != -1:
                 if len(premier_mot(mot)) == 1:
-                    print("Le premier président à parler de "+mot+" est : ", end ="")
+                    print("Le premier président à parler de "+regr(tokenisation(mot))+" est : ", end ="")
                     for val in premier_mot(mot):
                         print(val)
                 else:
