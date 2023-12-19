@@ -436,7 +436,7 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
         return "Chatbot: Ils mériteraient la note de 20/20 sans aucune hésiation", True
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
     rep = respond_better(text, directory, directory_clean, idf_given)                                                        # On crée la réponse a la question de l'utilisateur
-    if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
+    if rep == -1 or text == "":                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
         return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
     mot = minimize_text(split_new(text,[" "])[0])                                                                 # On minimize le texte de la question et on test plusieur cas
     if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
