@@ -116,15 +116,20 @@ def chat_bot():
                 print("\nChatBot : ", respond(question, chatBot_directory, directory_clean), "\n")
     elif choix == "2":
         question = ""
-        print("\n\n0 - Quitter le chat bot\nSinon énoncez votre question")
+        print("\n\n0 - Quitter le chat bot\n1 - Pre-Load IDF\nSinon énoncez votre question")
+        idf_given = False
+
         while question != "0":
             question = input("Vous : ")
-            if "note" in regr(tokenisation(question)," ") and "merite"in regr(tokenisation(question)," "):
+            if question == "1":
+                idf_given = idf(directory_clean)
+            
+            elif "note" in regr(tokenisation(question)," ") and "merite"in regr(tokenisation(question)," "):
                 print("\nChatBot : ", end= " ")
                 print("Ils mériteraient la note de 20/20 sans aucun doute\n")
             elif question != "0":
                 print("\nChatBot : ", end= " ")
-                rep = reponse_finale(question, chatBot_directory, directory_clean)
+                rep = reponse_finale(question, chatBot_directory, directory_clean, idf_given)
                 print(rep[0], "\n")
                 if rep[1] == False:
                     politesse("ajout")
