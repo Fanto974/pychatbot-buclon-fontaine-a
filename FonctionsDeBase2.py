@@ -53,9 +53,16 @@ def tokenisation(text):
             chaine_SansCaraSpe2 += ""
         else:
             chaine_SansCaraSpe2 += chaine_SansCaraSpe[i]
+    for i in range(len(chaine_SansCaraSpe2)):
+        if chaine_SansCaraSpe2[i] == " ":
+            pass
+        else:
+            chaine_SansCaraSpe2 = chaine_SansCaraSpe2[i:]
+            break
     if len(split_new(chaine_SansCaraSpe2,[" "])) == 0:
         return [""]
-    return split_new(chaine_SansCaraSpe2,[" "])  
+    return split_new(chaine_SansCaraSpe2,[" "])                                       # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
+
     #return split_new(chaine_SansCaraSpe2,[" "])                                              # On retourne une liste de la 2e chaine de caractère en splitant les mots avec les espaces
 
 
@@ -73,7 +80,7 @@ def regr(l, sep=""):
     return s
 
 
-def intersection(text, directory="./cleaned"):
+def intersection(text, directory="./cleaned", list_in_corpus = list(idf("./cleaned_chatBot").keys())):
     """
     :param : STR: une chaîne de caractères qui contiendra le texte de la question
            : STR: Un chemin d'accès vers le répértoire dont on veut analyser l'intersection
@@ -81,7 +88,6 @@ def intersection(text, directory="./cleaned"):
 
     :descirption: Analyse tous les mots de la question et ne retient que ceux qui sont également présent dans le corpus de document du dossier passé en paramère
     """
-    list_in_corpus = list(idf(directory).keys())        # On initalise une liste qui contient tous les mots du corpus de document du dossier en paramètre
     l_text = tokenisation(text)                         # On tokenise le texte pour le plus avoir ni de majuscule ni de caractères spécieux qui pourrais géner la comparaison
     l_intersection = []                                 # On initalise une liste qui contiendra les mot présent dans la question et le corpus
     for word in l_text:                                 # On parcours les mots de la question et on regarde si ils sont dans le corpus si c'est le cas on les ajoutes a la liste
@@ -123,7 +129,7 @@ def TFIDF_Qestion(text, directory="./cleaned", idf_given=False, key_given=False)
     else:                                                            # Si on n'a pas donné de mot précis on récupère tous les mots du corpus
         list_mots = list(idf_dir.keys())                             
     M = []
-    list_mots_Question = intersection(text, directory)               # On récupère tous les mots de la question
+    list_mots_Question = intersection(text, directory, list_mots)               # On récupère tous les mots de la question
     tf_motQuestion = tf(regr(tokenisation(text), " "))               # On récupère le TF de tous les mots de la question
     idf_motCorpus = idf_dir
     for i in list_mots:
@@ -301,9 +307,7 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
     sentence = ""
     found = False
     if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
-        return "Je n'ai pas assez de documents pour répondre a la question. Pouvez vous etres plus précis ?"
-    if doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean) == -1:
-        return "Je n'ai pas assez de documents pour répondre a la question. Pouvez vous etres plus précis ?"
+        return "Aucun des mots de la question n'est présent dans le corpus de documents"
     with open(directory + doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)[8:], "r", encoding="utf-8") as f:
         file = f.readlines()
         for word_impo in list_word_impo:
@@ -323,7 +327,7 @@ def respond(text, directory="./speech/", directory_clean = "./cleaned"):
 
 # print(respond("Comment est ce que les gens doivent decider de servir la france ?"))
 
-def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
+def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned", text_given=False ,idf_list_given=False):
     """
     :param: str: La question de l'utilisateur
             str: le directory dans lequel on doit chercher les documents avant leur modifications
@@ -336,15 +340,17 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
     doc_pert = doc_pertinent(TFIDF_Qestion(text, directory_clean), directory_clean)
     if doc_pert == -1:
         return -1
+    
     with open(directory + doc_pert[8:], "r", encoding="utf-8") as f:  # On ouvre le fichier normal (en enlevant le cleaned_) en lecture en utf8
         file = f.read()  # On lit le fichier
         l_file = split_new(file, [".","!","?"])# On sépare le fichier en unne liste de phrase possible contenant un des mots de la question         
         f.close()
-
-    # ________Calcul à l'avance________
-    idf_to_give = idf(directory_clean)  # On calcule à l'avance l'idf
-    key_to_give = list(idf_to_give.keys())  # On note à l'avance les clés de l'idf
-
+    if idf_list_given == False:
+        # ________Calcul à l'avance________
+        idf_to_give = idf(directory_clean)  # On calcule à l'avance l'idf
+        key_to_give = list(idf_to_give.keys())  # On note à l'avance les clés de l'idf
+    else:
+        idf_to_give = idf_list_given[directory_clean]
     # ________Calcul des phrases utiles à analyser________
     l_check = []
     for line in l_file:  # Pour chaque ligne
@@ -353,11 +359,10 @@ def respond_better(text, directory="./Dossiers_Thematiques/speech/", directory_c
             if val in line_toke:  # Si le mot de la question est dans la phrase
                 l_check.append(line)  # On ajoute donc cette phrase à notre liste de phrase
                 break  # On quitte la boucle de val car on peut passer à la phrase suivante, cela permet d'éviter les doublons de phrases
-
     # ________Calcul du max de la similarité Question/Phrase________
     max = 0
-    max_line = "Je n'ai pas assez de document pour répondre a la question. Pouvez vous etre plus précis ?"
-    for line in l_check:  # Pour chaque ligne du
+    max_line = "Le fichier ne contient aucune ligne correspondant à la question."
+    for line in l_check:  # Pour chaque ligne du fichier
         sim = similar(TFIDF_Qestion(text, directory_clean, idf_to_give, key_to_give),
                       [TFIDF_Qestion(line, directory_clean, idf_to_give, key_to_give)])[0]
         if sim > max:
@@ -419,7 +424,7 @@ def politesse(mode = "recup"):
             print("Ok")
 #print(politesse())
 
-def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned"):
+def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_clean="./cleaned", idf_given=False):
     """
     :param : STR: Une chaîne de caractères qui contiendra le texte de la question
            : STR: Un chemin d'accès vers le répertoire non cleaned ou la question est posée
@@ -430,9 +435,9 @@ def reponse_finale(text, directory="./Dossiers_Thematiques/speech/", directory_c
     if "note" in text and "merite" in text:
         return "Chatbot: Ils mériteraient la note de 20/20 sans aucune hésiation", True
     poli = politesse()                                                                                            # On range les formule de politesse dans une variable
-    rep = respond_better(text, directory, directory_clean)                                                        # On crée la réponse a la question de l'utilisateur
+    rep = respond_better(text, directory, directory_clean, idf_given)                                                        # On crée la réponse a la question de l'utilisateur
     if rep == -1:                                                                                                 # Dans le cas ou aucune réponse n'est possible on affiche un message a l'utilisateur
-        return ("Je n'ai pas assez de document et de ressources pour pouvoir répondre a cette question. Pouvez-vous etre plus précis ?"), True
+        return ("Aucun des mots de la question n'est présent dans le corpus de documents"), True
     mot = minimize_text(split_new(text,[" "])[0])                                                                 # On minimize le texte de la question et on test plusieur cas
     if len(tokenisation(mot)) == 1:                                                                               # En fonction de la question on répondra avec ou sans formule de politesse
         mot = tokenisation(mot)[0]
@@ -462,4 +467,3 @@ def split_new(text,l):
     return l_phrase
 text = "Quelle est l'attente international des gouvernements envers la mondialisation ?"
 #print(respond(text, "./Dossiers_Thematiques/speech/", "./cleaned"))
-print(tokenisation("aaze 2 aze"))
